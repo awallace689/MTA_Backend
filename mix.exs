@@ -20,6 +20,6 @@ defmodule Mta.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   def deps do
-    [{:protox, "~> 1.7"}, {:req, "~> 0.5.8"}, {:nimble_csv, "~> 1.2"}]
+    [{:protox, "~> 1.7"}, {:req, "~> 0.5.8"}, {:nimble_csv, "~> 1.2"}, {:jason, "~> 1.4"}]
   end
 end
