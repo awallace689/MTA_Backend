@@ -7,14 +7,14 @@ defmodule DataCache do
 
   @ets_undefined :undefined
 
-  @spec init() :: number()
+  @spec init() :: [:ets.infoList()]
   @doc """
   Initialize the data cache. Must be called before accessing any data.
   """
   def init() do
     case :ets.info(@table) do
-      @ets_undefined -> :ets.new(@table, [:set, :named_table])
-      pid -> pid
+      @ets_undefined -> :ets.info(:ets.new(@table, [:set, :named_table]))
+      info -> info
     end
   end
 
