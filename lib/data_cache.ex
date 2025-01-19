@@ -7,7 +7,7 @@ defmodule DataCache do
 
   @ets_undefined :undefined
 
-  @spec init() :: [:ets.infoList()]
+  @spec init() :: :ets.infoList()
   @doc """
   Initialize the data cache. Must be called before accessing any data.
   """
