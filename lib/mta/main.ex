@@ -10,7 +10,7 @@ defmodule Mta.Main do
       &(Mta.Parser.FeedMessage.is_feed_entity?(&1) and
           Mta.Parser.FeedEntity.has_vehicle?(&1))
     )
-    |> tap(fn vehicles -> IO.puts("Subway Count: #{length(vehicles)}") end)
+    |> tap(&IO.puts("Subway Count: #{length(&1)}"))
   end
 
   @spec main() :: :ok
