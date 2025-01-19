@@ -7,7 +7,7 @@ defmodule Mta do
   def print_messages(%TransitRealtime.FeedMessage{} = feed_message) do
     feed_message.entity
     |> Enum.filter(&(MtaParser.is_feed_entity?(&1) and MtaParser.has_vehicle?(&1)))
-    |> tap(fn vehicle_positions -> IO.puts("Subway Count: #{length(vehicle_positions)}") end)
+    |> tap(fn vehicles -> IO.puts("Subway Count: #{length(vehicles)}") end)
   end
 
   @spec main() :: :ok
@@ -31,6 +31,7 @@ defmodule Mta do
     )
 
     print_messages(feed_message)
+    DataCache.stops()
 
     :ok
   end

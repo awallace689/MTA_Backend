@@ -30,8 +30,8 @@ defmodule DataCache do
 
         stops
 
-      stops ->
-        stops
+      stops_kv ->
+        stops_kv[@stops_key]
     end
   end
 end
