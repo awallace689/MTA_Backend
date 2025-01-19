@@ -1,4 +1,7 @@
-defmodule FileUtils do
+defmodule Mta.Utils.File do
+  @moduledoc """
+  Utility functions for reading and writing project data
+  """
   @spec write_struct_to_json(struct(), String.t()) :: :ok
   def write_struct_to_json(%{} = struct, filename) do
     json_iodata = Protox.json_encode!(struct)
@@ -12,6 +15,6 @@ defmodule FileUtils do
 
   @spec write_feed_message_json(%TransitRealtime.FeedMessage{}) :: :ok
   def write_feed_message_json(%TransitRealtime.FeedMessage{} = message) do
-    FileUtils.write_struct_to_json(message, "FeedMessage.json")
+    write_struct_to_json(message, "FeedMessage.json")
   end
 end
