@@ -1,4 +1,4 @@
-defmodule Mta.Main do
+defmodule Mta.CLI do
   @moduledoc """
   Parse and format MTA GTFS and GTFS Realtime data
   """
@@ -36,5 +36,12 @@ defmodule Mta.Main do
     print_messages(feed_message)
 
     :ok
+  end
+
+  def loop() do
+  end
+
+  def print_title() do
+    IO.puts("Title")
   end
 end

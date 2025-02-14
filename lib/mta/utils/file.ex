@@ -17,4 +17,10 @@ defmodule Mta.Utils.File do
   def write_feed_message_json(%TransitRealtime.FeedMessage{} = message) do
     write_struct_to_json(message, "FeedMessage.json")
   end
+
+  def read_inspect_file(filename) do
+    {:ok, contents} = File.read("./out/#{filename}")
+
+    contents
+  end
 end
