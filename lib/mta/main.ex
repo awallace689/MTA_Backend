@@ -18,7 +18,7 @@ defmodule Mta.Main do
     Mta.Data.Cached.init()
 
     {:ok, resp} =
-      Req.get("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw")
+      Req.get(Mta.Constants.URL.mta_realtime_gtfs())
 
     feed_message = Protox.decode!(resp.body, TransitRealtime.FeedMessage)
     Mta.Utils.File.write_feed_message_json(feed_message)
