@@ -1,13 +1,4 @@
 defmodule Mta.CLI.IO do
-  @spec ellipses(String.t(), number()) :: String.t()
-  def ellipses(input, max_length) do
-    if String.length(input) > max_length do
-      Enum.take(input, max_length) <> "..."
-    else
-      input
-    end
-  end
-
   @spec display(String.t()) :: :ok
   def display(msg) do
     if String.ends_with?(msg, "\n") do
