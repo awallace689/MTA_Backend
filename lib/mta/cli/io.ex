@@ -10,14 +10,14 @@ defmodule Mta.CLI.IO do
 
   @spec prompt(String.t() | nil, Boolean.t()) :: String.t()
   def prompt(msg, downcase \\ true) do
-    downcase? = &if(downcase, do: String.downcase(&1), else: &1)
+    apply_downcase = &if(downcase, do: String.downcase(&1), else: &1)
 
     if msg do
       msg = if String.last(msg) == "\n", do: msg, else: msg <> "\n"
       IO.puts(msg)
     end
 
-    IO.gets("> ") |> String.trim() |> downcase?.()
+    IO.gets("> ") |> String.trim() |> apply_downcase.()
   end
 
   @spec break() :: :ok
