@@ -10,7 +10,7 @@ defmodule Mta.CLI do
           | :menu
 
   def loop() do
-    :ok = loop_rec(:start)
+    loop_rec(:start)
   end
 
   @spec loop_rec(state()) :: :ok
