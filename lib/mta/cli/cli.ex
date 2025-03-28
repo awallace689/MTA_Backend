@@ -23,8 +23,9 @@ defmodule Mta.CLI do
 
       :menu ->
         MtaIO.break()
-        MtaIO.display("1) Get latest")
+        MtaIO.display("1) Get message")
         MtaIO.display("2) Get latest and save")
+        MtaIO.display("3) Clear cache")
         MtaIO.display("x) Exit")
 
         input = MtaIO.prompt(nil)
@@ -48,6 +49,10 @@ defmodule Mta.CLI do
       "2" ->
         get_latest(true)
 
+      "3" ->
+        clear_cache()
+        MtaIO.display("Cache cleared.")
+
       "x" ->
         exit(:shutdown)
 
@@ -62,10 +67,7 @@ defmodule Mta.CLI do
   def get_latest(write_files) do
     Mta.Data.Cached.init()
 
-    {:ok, resp} =
-      Req.get(Mta.Constants.URL.mta_realtime_gtfs())
-
-    feed_message = Protox.decode!(resp.body, TransitRealtime.FeedMessage)
+    feed_message = Mta.Data.Cached.feed_message()
 
     if write_files do
       Mta.Utils.File.write_feed_message_json(feed_message)
@@ -84,6 +86,12 @@ defmodule Mta.CLI do
     print_messages(feed_message)
 
     :ok
+  end
+
+  @spec clear_cache() :: :ok
+  def clear_cache() do
+    Mta.Data.Cached.init()
+    Mta.Data.Cached.clear()
   end
 
   @spec print_messages(TransitRealtime.FeedMessage.t()) :: :ok

@@ -16,8 +16,12 @@ defmodule Mta.Data do
     """
 
     @stops_key :stops
-
+    @response_key :response_key
     @ets_undefined :undefined
+
+    defmodule TimestampValue do
+      defstruct timestamp: nil, value: nil
+    end
 
     @spec init() :: :ets.infoList()
     @doc """
@@ -25,26 +29,85 @@ defmodule Mta.Data do
     """
     def init() do
       case :ets.info(Data.table_key()) do
-        @ets_undefined -> :ets.info(:ets.new(Data.table_key(), [:set, :named_table]))
-        info -> info
+        @ets_undefined ->
+          :ets.info(:ets.new(Data.table_key(), [:set, :named_table]))
+
+        info ->
+          info
       end
     end
 
-    @spec stops() :: %{String.t() => Stop.t()}
+    @spec clear(keys: [Atom.t()]) :: :ok
+    def clear(keys \\ [@response_key]) do
+      for key <- keys do
+        :ets.delete(Data.table_key(), key)
+      end
+    end
+
+    @spec get_set_expired(atom(), number() | nil, fun()) :: term()
+    def get_set_expired(key, timeout_seconds, load) do
+      kv = :ets.lookup(Data.table_key(), key)
+
+      use_cache =
+        kv != [] && !expired?(kv[key].timestamp, timeout_seconds)
+
+      case(use_cache) do
+        false ->
+          data = load.()
+          :ets.insert(Data.table_key(), {key, create_timestamp_value(data)})
+
+          data
+
+        true ->
+          kv[key].value
+      end
+    end
+
+    @spec stops(number()) :: %{String.t() => Stop.t()}
     @doc """
     Map of stop ID to stop struct. Data provided by MTA GTFS.
     """
-    def stops() do
-      case :ets.lookup(Data.table_key(), @stops_key) do
-        [] ->
-          stops = Mta.Parser.Stops.read_stops()
-          :ets.insert(Data.table_key(), {@stops_key, stops})
+    def stops(timeout_seconds \\ nil) do
+      load = fn -> Mta.Parser.Stops.read_stops() end
+      get_set_expired(@stops_key, timeout_seconds, load)
+    end
 
-          stops
+    @spec feed_message() :: %TransitRealtime.FeedMessage{}
+    @doc """
+    FeedMessage containing MTA realtime data payload
+    """
+    def feed_message(timeout_seconds \\ 20) do
+      load = fn ->
+        {:ok, resp} =
+          Req.get(Mta.Constants.URL.mta_realtime_gtfs())
 
-        stops_kv ->
-          stops_kv[@stops_key]
+        Protox.decode!(resp.body, TransitRealtime.FeedMessage)
       end
+
+      get_set_expired(@response_key, timeout_seconds, load)
+    end
+
+    @spec create_timestamp_value(term()) :: TimestampValue.t()
+    defp create_timestamp_value(value) do
+      %TimestampValue{value: value, timestamp: DateTime.utc_now()}
+    end
+
+    # A timestamp is always expired if it is missing or time elapsed is greater than `timeout`.
+    # A non-`nil` timestamp is never expired if `timeout` is `nil`.
+    @spec expired?(DateTime.t(), number(), :day | :hour | :minute | System.time_unit()) ::
+            boolean()
+    defp expired?(timestamp, timeout, unit \\ :second)
+
+    defp expired?(timestamp, timeout, _)
+         when is_nil(timestamp) or
+                timeout == 0 do
+      true
+    end
+
+    defp expired?(_, nil, _), do: false
+
+    defp expired?(timestamp, timeout, unit) do
+      DateTime.diff(DateTime.utc_now(), timestamp, unit) > timeout
     end
 
     defmodule Local do
@@ -52,28 +115,21 @@ defmodule Mta.Data do
       Locally-stored mock responses for offline dev
       """
 
-      @local_key :local
+      @local_response_key :local
 
-      def load_response(filename) do
-        {:ok, contents} = File.read("./out/#{filename}")
-        {value, []} = Code.eval_string(contents)
-
-        :ets.insert(Data.table_key(), {@local_key, value})
-      end
-
-      @spec response() :: %TransitRealtime.FeedMessage{}
+      @spec feed_message(String.t() | nil) :: %TransitRealtime.FeedMessage{}
       @doc """
-      Map of stop ID to stop struct. Data provided by MTA GTFS.
+      Must first load_response. Map of stop ID to stop struct. Data provided by MTA GTFS.
       """
+      def feed_message(filename) do
+        load = fn ->
+          {:ok, contents} = File.read("./out/#{filename}")
+          {value, []} = Code.eval_string(contents)
 
-      def response() do
-        case :ets.lookup(Data.table_key(), @local_key) do
-          [] ->
-            {:error, "Local response not loaded."}
-
-          local_kv ->
-            local_kv[@local_key]
+          value
         end
+
+        Data.Cached.get_set_expired(@local_response_key, nil, load)
       end
     end
   end
