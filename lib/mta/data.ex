@@ -119,7 +119,7 @@ defmodule Mta.Data do
 
       @spec feed_message(String.t() | nil) :: %TransitRealtime.FeedMessage{}
       @doc """
-      Must first load_response. Map of stop ID to stop struct. Data provided by MTA GTFS.
+      Map of stop ID to stop struct. Data provided by MTA GTFS.
       """
       def feed_message(filename) do
         load = fn ->
