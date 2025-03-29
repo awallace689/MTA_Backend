@@ -6,7 +6,7 @@ defmodule Mta.Cache do
   @spec table_key() :: String.t()
   defp table_key(), do: :data
 
-  @stops_key :stops
+  @stops_key :stops_key
   @response_key :response_key
   @ets_undefined :undefined
 
