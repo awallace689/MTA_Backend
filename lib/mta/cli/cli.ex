@@ -1,5 +1,3 @@
-alias Mta.CLI.IO, as: MtaIO
-
 defmodule Mta.CLI do
   @moduledoc """
   Parse and format MTA GTFS and GTFS Realtime data
@@ -22,13 +20,13 @@ defmodule Mta.CLI do
         loop_rec(:menu)
 
       :menu ->
-        MtaIO.break()
-        MtaIO.display("1) Get message")
-        MtaIO.display("2) Get latest and save")
-        MtaIO.display("3) Clear cache")
-        MtaIO.display("x) Exit")
+        __MODULE__.IO.break()
+        __MODULE__.IO.display("1) Get message")
+        __MODULE__.IO.display("2) Get latest and save")
+        __MODULE__.IO.display("3) Clear cache")
+        __MODULE__.IO.display("x) Exit")
 
-        input = MtaIO.prompt(nil)
+        input = __MODULE__.IO.prompt(nil)
         handle_menu(input)
 
         loop_rec(:menu)
@@ -37,7 +35,7 @@ defmodule Mta.CLI do
 
   @spec start(String.t()) :: :ok
   defp start(msg) do
-    MtaIO.display(msg)
+    __MODULE__.IO.display(msg)
   end
 
   @spec handle_menu(String.t()) :: :ok
@@ -51,13 +49,13 @@ defmodule Mta.CLI do
 
       "3" ->
         clear_cache()
-        MtaIO.display("Cache cleared.")
+        __MODULE__.IO.display("Cache cleared.")
 
       "x" ->
         exit(:shutdown)
 
       invalid ->
-        MtaIO.display("Invalid input: #{ellipses(invalid, 30)}")
+        __MODULE__.IO.display("Invalid input: #{ellipses(invalid, 30)}")
 
         loop_rec(:menu)
     end
@@ -65,9 +63,9 @@ defmodule Mta.CLI do
 
   @spec get_latest(Boolean.t()) :: :ok
   def get_latest(write_files) do
-    Mta.Data.Cached.init()
+    Mta.Cache.init()
 
-    feed_message = Mta.Data.Cached.feed_message()
+    feed_message = Mta.Cache.feed_message()
 
     if write_files do
       Mta.Utils.File.write_feed_message_json(feed_message)
@@ -78,7 +76,7 @@ defmodule Mta.CLI do
       )
 
       Mta.Utils.File.write_file(
-        inspect(Mta.Data.Cached.stops(), limit: :infinity, pretty: true),
+        inspect(Mta.Cache.stops(), limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
     end
@@ -90,8 +88,8 @@ defmodule Mta.CLI do
 
   @spec clear_cache() :: :ok
   def clear_cache() do
-    Mta.Data.Cached.init()
-    Mta.Data.Cached.clear()
+    Mta.Cache.init()
+    Mta.Cache.clear()
   end
 
   @spec print_messages(TransitRealtime.FeedMessage.t()) :: :ok
