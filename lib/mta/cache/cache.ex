@@ -30,7 +30,7 @@ defmodule Mta.Cache do
   end
 
   @spec clear_key(atom()) :: :ok
-  defp clear_key(key) do
+  def clear_key(key) do
     :ets.delete(table_key(), key)
   end
 

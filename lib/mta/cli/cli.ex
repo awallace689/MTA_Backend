@@ -68,14 +68,14 @@ defmodule Mta.CLI do
     feed_message = Mta.Cache.feed_message()
 
     if write_files do
-      Mta.Utils.File.write_feed_message_json(feed_message)
+      Mta.IO.File.write_feed_message_json(feed_message)
 
-      Mta.Utils.File.write_file(
+      Mta.IO.File.write_file(
         inspect(feed_message, limit: :infinity, pretty: true),
         "inspect__feed_message.ex"
       )
 
-      Mta.Utils.File.write_file(
+      Mta.IO.File.write_file(
         inspect(Mta.Cache.stops(), limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
