@@ -24,12 +24,12 @@ defmodule Mta.Cache do
     end
   end
 
-  @spec clear() :: :ok
+  @spec clear() :: true
   def clear() do
     clear_key(@response_key)
   end
 
-  @spec clear_key(term()) :: :ok
+  @spec clear_key(term()) :: true
   def clear_key(key) do
     :ets.delete(table_key(), key)
   end
@@ -39,7 +39,7 @@ defmodule Mta.Cache do
     kv = :ets.lookup(table_key(), key)
 
     use_cache =
-      kv != [] && __MODULE__.TimestampValue.expired?(kv[key].timestamp, timeout_seconds)
+      kv != [] && !__MODULE__.TimestampValue.expired?(kv[key].timestamp, timeout_seconds)
 
     case(use_cache) do
       false ->
@@ -47,7 +47,7 @@ defmodule Mta.Cache do
 
         :ets.insert(
           table_key(),
-          {key, __MODULE__.TimestampValue.new(value: data)}
+          {key, __MODULE__.TimestampValue.new(data)}
         )
 
         data

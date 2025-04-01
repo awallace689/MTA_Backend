@@ -2,7 +2,7 @@ defmodule Mta.Cache.TimestampValue do
   defstruct timestamp: nil, value: nil
 
   @spec new(term()) :: %__MODULE__{}
-  def new(value: value) when not is_nil(value) do
+  def new(value) when not is_nil(value) do
     %__MODULE__{value: value, timestamp: DateTime.utc_now()}
   end
 
