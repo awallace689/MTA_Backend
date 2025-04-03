@@ -1,4 +1,4 @@
-defmodule Mta.CLI.IO do
+defmodule Mta.CLI.Io do
   @spec display(String.t()) :: :ok
   def display(msg) do
     if String.ends_with?(msg, "\n") do

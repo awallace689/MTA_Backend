@@ -9,8 +9,7 @@ defmodule Mta.Cache.Test do
   @table_type :set
   @is_named_table true
 
-  @table_key :data
-  @response_key :response_key
+  @table_key :mta_cache__table_key
 
   describe "init tests" do
     setup do
@@ -40,23 +39,6 @@ defmodule Mta.Cache.Test do
       res2 = init()
 
       assert res1 == res2
-    end
-  end
-
-  describe "clear" do
-    setup do
-      create_table()
-
-      on_exit(&delete_table_if_exists/0)
-    end
-
-    test "deletes API response KV" do
-      data = :data
-      insert_key_value(@response_key, data)
-
-      assert get_value(@response_key) == data
-      clear()
-      assert get_value(@response_key) == :key_not_found
     end
   end
 
@@ -100,37 +82,44 @@ defmodule Mta.Cache.Test do
       %{key: :key}
     end
 
-    test "sets key if doesn't exist", config do
-      %{key: key} = config
-      assert get_set_expired(key, :no_timeout, &load/0)
-    end
+    for initial_timeout_value <- [:no_timeout, 0, 1] do
+      test "sets key if doesn't exist. initial_timeout_value=#{initial_timeout_value}",
+           config do
+        %{key: key} = config
+        assert get_set_expired(key, unquote(initial_timeout_value), &load/0)
+      end
 
-    test "gets cached value if timeout not expired", config do
-      %{key: key} = config
-      res = get_set_expired(key, :no_timeout, &load/0)
+      test "gets cached value if timeout not expired. initial_timeout_value=#{initial_timeout_value}",
+           config do
+        %{key: key} = config
+        res = get_set_expired(key, :no_timeout, &load/0)
 
-      assert res == get_set_expired(key, :no_timeout, &load/0)
-    end
+        assert res == get_set_expired(key, :no_timeout, &load/0)
+      end
 
-    test "gets cached value if :no_timeout is set", config do
-      %{key: key} = config
-      res = get_set_expired(key, :no_timeout, &load/0)
+      test "gets cached value if :no_timeout is set. initial_timeout_value=#{initial_timeout_value}",
+           config do
+        %{key: key} = config
+        res = get_set_expired(key, :no_timeout, &load/0)
 
-      assert res == get_set_expired(key, :no_timeout, &load/0)
-    end
+        assert res == get_set_expired(key, :no_timeout, &load/0)
+      end
 
-    test "gets cached value if not expired", config do
-      %{key: key} = config
-      res = get_set_expired(key, :no_timeout, &load/0)
+      test "gets cached value if not expired. initial_timeout_value=#{initial_timeout_value}",
+           config do
+        %{key: key} = config
+        res = get_set_expired(key, :no_timeout, &load/0)
 
-      assert res == get_set_expired(key, 1, &load/0)
-    end
+        assert res == get_set_expired(key, 1, &load/0)
+      end
 
-    test "gets and sets key if expired", config do
-      %{key: key} = config
-      res = get_set_expired(key, :no_timeout, &load/0)
+      test "gets and sets key if expired. initial_timeout_value=#{initial_timeout_value}",
+           config do
+        %{key: key} = config
+        res = get_set_expired(key, :no_timeout, &load/0)
 
-      assert res != get_set_expired(key, 0, &load/0)
+        assert res != get_set_expired(key, 0, &load/0)
+      end
     end
 
     defp load() do

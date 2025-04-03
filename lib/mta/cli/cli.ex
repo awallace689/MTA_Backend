@@ -20,13 +20,12 @@ defmodule Mta.CLI do
         loop_rec(:menu)
 
       :menu ->
-        __MODULE__.IO.break()
-        __MODULE__.IO.display("1) Get message")
-        __MODULE__.IO.display("2) Get latest and save")
-        __MODULE__.IO.display("3) Clear cache")
-        __MODULE__.IO.display("x) Exit")
+        __MODULE__.Io.break()
+        __MODULE__.Io.display("1) Get message")
+        __MODULE__.Io.display("2) Get latest and save")
+        __MODULE__.Io.display("x) Exit")
 
-        input = __MODULE__.IO.prompt(nil)
+        input = __MODULE__.Io.prompt(nil)
         handle_menu(input)
 
         loop_rec(:menu)
@@ -35,7 +34,7 @@ defmodule Mta.CLI do
 
   @spec start(String.t()) :: :ok
   defp start(msg) do
-    __MODULE__.IO.display(msg)
+    __MODULE__.Io.display(msg)
   end
 
   @spec handle_menu(String.t()) :: :ok
@@ -47,15 +46,11 @@ defmodule Mta.CLI do
       "2" ->
         get_latest(true)
 
-      "3" ->
-        clear_cache()
-        __MODULE__.IO.display("Cache cleared.")
-
       "x" ->
         exit(:shutdown)
 
       invalid ->
-        __MODULE__.IO.display("Invalid input: #{ellipses(invalid, 30)}")
+        __MODULE__.Io.display("Invalid input: #{ellipses(invalid, 30)}")
 
         loop_rec(:menu)
     end
@@ -65,18 +60,18 @@ defmodule Mta.CLI do
   def get_latest(write_files) do
     Mta.Cache.init()
 
-    feed_message = Mta.Cache.feed_message()
+    feed_message = Mta.Io.Api.get_feed_message_cached()
 
     if write_files do
-      Mta.IO.File.write_feed_message_json(feed_message)
+      Mta.Io.File.write_feed_message_json(feed_message)
 
-      Mta.IO.File.write_file(
+      Mta.Io.File.write_file(
         inspect(feed_message, limit: :infinity, pretty: true),
         "inspect__feed_message.ex"
       )
 
-      Mta.IO.File.write_file(
-        inspect(Mta.Cache.stops(), limit: :infinity, pretty: true),
+      Mta.Io.File.write_file(
+        inspect(Mta.Io.Stops.read_stops_cached(), limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
     end
@@ -84,12 +79,6 @@ defmodule Mta.CLI do
     print_messages(feed_message)
 
     :ok
-  end
-
-  @spec clear_cache() :: :ok
-  def clear_cache() do
-    Mta.Cache.init()
-    Mta.Cache.clear()
   end
 
   @spec print_messages(TransitRealtime.FeedMessage.t()) :: :ok

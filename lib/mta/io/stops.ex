@@ -1,6 +1,8 @@
 alias NimbleCSV.RFC4180, as: CSV
 
-defmodule Mta.Parser.Stops do
+defmodule Mta.Io.Stops do
+  @cache_key :mta_parser_stops__stops_key
+
   @spec read_stops() :: %{String.t() => %Mta.Models.Stop{}}
   @doc """
   Map of stop_id to Stop struct
@@ -21,5 +23,9 @@ defmodule Mta.Parser.Stops do
     |> Enum.to_list()
     |> Enum.map(fn stop -> {stop.stop_id, stop} end)
     |> Map.new()
+  end
+
+  def read_stops_cached(timeout_seconds \\ :no_timeout) do
+    Mta.Cache.get_set_expired(@cache_key, timeout_seconds, &read_stops/0)
   end
 end

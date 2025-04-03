@@ -1,4 +1,4 @@
-defmodule Mta.IO.File do
+defmodule Mta.Io.File do
   @moduledoc """
   Utility functions for reading and writing project data
   """
