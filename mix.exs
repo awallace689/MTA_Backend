@@ -25,7 +25,8 @@ defmodule Mta.MixProject do
       {:req, "~> 0.5.8"},
       {:nimble_csv, "~> 1.2"},
       {:jason, "~> 1.4"},
-      {:elixir_uuid, "~> 1.2"}
+      {:elixir_uuid, "~> 1.2"},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 end

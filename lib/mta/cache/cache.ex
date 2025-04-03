@@ -5,11 +5,13 @@ defmodule Mta.Cache do
   Cached data. Implemented with :ets
   """
 
+  @type info_list :: {atom(), term()}
+
   @table_key :mta_cache__table_key
 
   @ets_undefined :undefined
 
-  @spec init() :: :ets.infoList()
+  @spec init() :: info_list()
   @doc """
   Initialize the data cache. Must be called before accessing any data.
   """

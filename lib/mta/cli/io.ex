@@ -8,7 +8,7 @@ defmodule Mta.CLI.Io do
     end
   end
 
-  @spec prompt(String.t() | nil, Boolean.t()) :: String.t()
+  @spec prompt(String.t() | nil, boolean()) :: String.t()
   def prompt(msg, downcase \\ true) do
     apply_downcase = &if(downcase, do: String.downcase(&1), else: &1)
 

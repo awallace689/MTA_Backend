@@ -56,7 +56,7 @@ defmodule Mta.CLI do
     end
   end
 
-  @spec get_latest(Boolean.t()) :: :ok
+  @spec get_latest(boolean()) :: :ok
   def get_latest(write_files) do
     Mta.Cache.init()
 
@@ -81,14 +81,16 @@ defmodule Mta.CLI do
     :ok
   end
 
-  @spec print_messages(TransitRealtime.FeedMessage.t()) :: :ok
-  def print_messages(%TransitRealtime.FeedMessage{} = feed_message) do
+  @spec print_messages(%TransitRealtime.FeedMessage{}) :: :ok
+  def print_messages(feed_message) do
     feed_message.entity
     |> Enum.filter(
       &(Mta.Parser.FeedMessage.is_feed_entity?(&1) and
           Mta.Parser.FeedEntity.has_vehicle?(&1))
     )
     |> tap(&IO.puts("Subway Count: #{length(&1)}"))
+
+    :ok
   end
 
   @spec ellipses(String.t(), number()) :: String.t()
