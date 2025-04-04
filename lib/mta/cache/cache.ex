@@ -1,4 +1,5 @@
 defmodule Mta.Cache do
+  @dialyzer {:nowarn_function, {:init, 0}}
   alias __MODULE__.TimestampValue
 
   @moduledoc """

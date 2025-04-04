@@ -96,7 +96,11 @@ defmodule Mta.CLI do
   @spec ellipses(String.t(), number()) :: String.t()
   def ellipses(input, max_length) do
     if String.length(input) > max_length do
-      Enum.take(input, max_length) <> "..."
+      input
+      |> String.graphemes()
+      |> Enum.take(max_length)
+      |> Enum.join("")
+      |> (&(&1 <> "...")).()
     else
       input
     end
