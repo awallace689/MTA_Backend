@@ -1,15 +1,15 @@
 defmodule Mta.Cache do
-  @dialyzer {:nowarn_function, {:init, 0}}
-  alias __MODULE__.TimestampValue
-
   @moduledoc """
   Cached data. Implemented with :ets
   """
 
+  alias __MODULE__.TimestampValue
+
+  @dialyzer {:nowarn_function, {:init, 0}}
+
   @type info_list :: {atom(), term()}
 
   @table_key :mta_cache__table_key
-
   @ets_undefined :undefined
 
   @spec init() :: info_list()
