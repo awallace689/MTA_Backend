@@ -1,4 +1,6 @@
-defmodule Mta.Io.Api do
+defmodule Mta.Io.Api.Http do
+  @behaviour Mta.Io.Api
+
   @feed_message_key :mta_io_api__get_feed_message_key
 
   @spec get_feed_message() :: %TransitRealtime.FeedMessage{}

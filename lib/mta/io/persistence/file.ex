@@ -1,4 +1,5 @@
-defmodule Mta.Io.File do
+defmodule Mta.Io.Persistence.File do
+  @behaviour Mta.Io.Persistence
   @moduledoc """
   Utility functions for reading and writing project data
   """

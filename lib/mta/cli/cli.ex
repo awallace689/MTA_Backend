@@ -60,18 +60,18 @@ defmodule Mta.CLI do
   def get_latest(write_files) do
     Mta.Cache.init()
 
-    feed_message = Mta.Io.Api.get_feed_message_cached()
+    feed_message = Mta.Io.Api.Http.get_feed_message_cached()
 
     if write_files do
-      Mta.Io.File.write_feed_message_json(feed_message)
+      Mta.Io.Persistence.File.write_feed_message_json(feed_message)
 
-      Mta.Io.File.write_file(
+      Mta.Io.Persistence.File.write_file(
         inspect(feed_message, limit: :infinity, pretty: true),
         "inspect__feed_message.ex"
       )
 
-      Mta.Io.File.write_file(
-        inspect(Mta.Io.Stops.read_stops_cached(), limit: :infinity, pretty: true),
+      Mta.Io.Persistence.File.write_file(
+        inspect(Mta.Io.Stops.File.read_stops_cached(), limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
     end

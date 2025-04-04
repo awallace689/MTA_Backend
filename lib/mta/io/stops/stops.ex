@@ -1,6 +1,8 @@
 alias NimbleCSV.RFC4180, as: CSV
 
-defmodule Mta.Io.Stops do
+defmodule Mta.Io.Stops.File do
+  @behaviour Mta.Io.Stops
+
   @cache_key :mta_parser_stops__stops_key
 
   @spec read_stops() :: %{String.t() => %Mta.Models.Stop{}}
@@ -25,6 +27,7 @@ defmodule Mta.Io.Stops do
     |> Map.new()
   end
 
+  @spec read_stops_cached(number()) :: %{String.t() => %Mta.Models.Stop{}}
   def read_stops_cached(timeout_seconds \\ :no_timeout) do
     Mta.Cache.get_set_expired(@cache_key, timeout_seconds, &read_stops/0)
   end
