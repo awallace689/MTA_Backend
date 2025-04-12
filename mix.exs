@@ -7,7 +7,11 @@ defmodule Mta.MixProject do
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases(),
+      test_coverage: [
+        ignore_modules: [~r/^TransitRealtime\./, ~r/^Mta\.Constants\./, ~r/^Mix\.Tasks\./]
+      ]
     ]
   end
 
@@ -15,6 +19,18 @@ defmodule Mta.MixProject do
   def application do
     [
       extra_applications: [:logger, :elixir_uuid]
+    ]
+  end
+
+  def cli do
+    [preferred_envs: [t: :test]]
+  end
+
+  def aliases do
+    [
+      t: fn args ->
+        Mix.Task.run("test", ["--cover", "--slowest", "3"] ++ args)
+      end
     ]
   end
 
