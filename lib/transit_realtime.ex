@@ -1815,8 +1815,7 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   active_period:
-                     msg.active_period ++ [TransitRealtime.TimeRange.decode!(delimited)]
+                   active_period: msg.active_period ++ [TransitRealtime.TimeRange.decode!(delimited)]
                  ], rest}
 
               {5, _, bytes} ->
@@ -1824,8 +1823,7 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   informed_entity:
-                     msg.informed_entity ++ [TransitRealtime.EntitySelector.decode!(delimited)]
+                   informed_entity: msg.informed_entity ++ [TransitRealtime.EntitySelector.decode!(delimited)]
                  ], rest}
 
               {6, _, bytes} ->
@@ -1954,8 +1952,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -2019,15 +2016,10 @@
           10 => {:header_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           11 => {:description_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           12 => {:tts_header_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          13 =>
-            {:tts_description_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          14 =>
-            {:severity_level, {:scalar, :UNKNOWN_SEVERITY},
-             {:enum, TransitRealtime.Alert.SeverityLevel}},
+          13 => {:tts_description_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          14 => {:severity_level, {:scalar, :UNKNOWN_SEVERITY}, {:enum, TransitRealtime.Alert.SeverityLevel}},
           15 => {:image, {:scalar, nil}, {:message, TransitRealtime.TranslatedImage}},
-          16 =>
-            {:image_alternative_text, {:scalar, nil},
-             {:message, TransitRealtime.TranslatedString}},
+          16 => {:image_alternative_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           17 => {:cause_detail, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           18 => {:effect_detail, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}}
         }
@@ -2047,13 +2039,10 @@
           effect_detail: {18, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           header_text: {10, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           image: {15, {:scalar, nil}, {:message, TransitRealtime.TranslatedImage}},
-          image_alternative_text:
-            {16, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          image_alternative_text: {16, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           informed_entity: {5, :unpacked, {:message, TransitRealtime.EntitySelector}},
-          severity_level:
-            {14, {:scalar, :UNKNOWN_SEVERITY}, {:enum, TransitRealtime.Alert.SeverityLevel}},
-          tts_description_text:
-            {13, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          severity_level: {14, {:scalar, :UNKNOWN_SEVERITY}, {:enum, TransitRealtime.Alert.SeverityLevel}},
+          tts_description_text: {13, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           tts_header_text: {12, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           url: {8, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}}
         }
@@ -3038,8 +3027,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -3775,8 +3763,7 @@
 
                 {[:stop | set_fields],
                  [
-                   stop:
-                     Protox.MergeMessage.merge(msg.stop, TransitRealtime.Stop.decode!(delimited))
+                   stop: Protox.MergeMessage.merge(msg.stop, TransitRealtime.Stop.decode!(delimited))
                  ], rest}
 
               {8, _, bytes} ->
@@ -3797,8 +3784,7 @@
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -3861,8 +3847,7 @@
           5 => {:alert, {:scalar, nil}, {:message, TransitRealtime.Alert}},
           6 => {:shape, {:scalar, nil}, {:message, TransitRealtime.Shape}},
           7 => {:stop, {:scalar, nil}, {:message, TransitRealtime.Stop}},
-          8 =>
-            {:trip_modifications, {:scalar, nil}, {:message, TransitRealtime.TripModifications}}
+          8 => {:trip_modifications, {:scalar, nil}, {:message, TransitRealtime.TripModifications}}
         }
       end
 
@@ -4511,16 +4496,14 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:feed_version | set_fields],
-                 [feed_version: Protox.Decode.validate_string!(delimited)], rest}
+                {[:feed_version | set_fields], [feed_version: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -4577,9 +4560,7 @@
       def defs() do
         %{
           1 => {:gtfs_realtime_version, {:scalar, ""}, :string},
-          2 =>
-            {:incrementality, {:scalar, :FULL_DATASET},
-             {:enum, TransitRealtime.FeedHeader.Incrementality}},
+          2 => {:incrementality, {:scalar, :FULL_DATASET}, {:enum, TransitRealtime.FeedHeader.Incrementality}},
           3 => {:timestamp, {:scalar, 0}, :uint64},
           4 => {:feed_version, {:scalar, ""}, :string}
         }
@@ -4593,8 +4574,7 @@
         %{
           feed_version: {4, {:scalar, ""}, :string},
           gtfs_realtime_version: {1, {:scalar, ""}, :string},
-          incrementality:
-            {2, {:scalar, :FULL_DATASET}, {:enum, TransitRealtime.FeedHeader.Incrementality}},
+          incrementality: {2, {:scalar, :FULL_DATASET}, {:enum, TransitRealtime.FeedHeader.Incrementality}},
           timestamp: {3, {:scalar, 0}, :uint64}
         }
       end
@@ -5013,16 +4993,14 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:entity | set_fields],
-                 [entity: msg.entity ++ [TransitRealtime.FeedEntity.decode!(delimited)]], rest}
+                {[:entity | set_fields], [entity: msg.entity ++ [TransitRealtime.FeedEntity.decode!(delimited)]], rest}
 
               {tag, wire_type, rest} ->
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -5443,8 +5421,7 @@
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -5942,8 +5919,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -6329,8 +6305,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -6991,8 +6966,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -7059,9 +7033,7 @@
           9 => {:stop_url, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           11 => {:parent_station, {:scalar, ""}, :string},
           12 => {:stop_timezone, {:scalar, ""}, :string},
-          13 =>
-            {:wheelchair_boarding, {:scalar, :UNKNOWN},
-             {:enum, TransitRealtime.Stop.WheelchairBoarding}},
+          13 => {:wheelchair_boarding, {:scalar, :UNKNOWN}, {:enum, TransitRealtime.Stop.WheelchairBoarding}},
           14 => {:level_id, {:scalar, ""}, :string},
           15 => {:platform_code, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}}
         }
@@ -7085,8 +7057,7 @@
           stop_timezone: {12, {:scalar, ""}, :string},
           stop_url: {9, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           tts_stop_name: {4, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          wheelchair_boarding:
-            {13, {:scalar, :UNKNOWN}, {:enum, TransitRealtime.Stop.WheelchairBoarding}},
+          wheelchair_boarding: {13, {:scalar, :UNKNOWN}, {:enum, TransitRealtime.Stop.WheelchairBoarding}},
           zone_id: {8, {:scalar, ""}, :string}
         }
       end
@@ -8031,8 +8002,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -8412,8 +8382,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -8771,8 +8740,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -8828,9 +8796,7 @@
             }
       def defs() do
         %{
-          1 =>
-            {:localized_image, :unpacked,
-             {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
+          1 => {:localized_image, :unpacked, {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
         }
       end
 
@@ -8840,8 +8806,7 @@
             }
       def defs_by_name() do
         %{
-          localized_image:
-            {1, :unpacked, {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
+          localized_image: {1, :unpacked, {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
         }
       end
     )
@@ -9125,23 +9090,20 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:media_type | set_fields],
-                 [media_type: Protox.Decode.validate_string!(delimited)], rest}
+                {[:media_type | set_fields], [media_type: Protox.Decode.validate_string!(delimited)], rest}
 
               {3, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:language | set_fields], [language: Protox.Decode.validate_string!(delimited)],
-                 rest}
+                {[:language | set_fields], [language: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -9559,8 +9521,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -9882,16 +9843,14 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:language | set_fields], [language: Protox.Decode.validate_string!(delimited)],
-                 rest}
+                {[:language | set_fields], [language: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -10368,8 +10327,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -10433,9 +10391,7 @@
              {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}},
           5 => {:route_id, {:scalar, ""}, :string},
           6 => {:direction_id, {:scalar, 0}, :uint32},
-          7 =>
-            {:modified_trip, {:scalar, nil},
-             {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}}
+          7 => {:modified_trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}}
         }
       end
 
@@ -10446,12 +10402,10 @@
       def defs_by_name() do
         %{
           direction_id: {6, {:scalar, 0}, :uint32},
-          modified_trip:
-            {7, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}},
+          modified_trip: {7, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}},
           route_id: {5, {:scalar, ""}, :string},
           schedule_relationship:
-            {4, {:scalar, :SCHEDULED},
-             {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}},
+            {4, {:scalar, :SCHEDULED}, {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}},
           start_date: {3, {:scalar, ""}, :string},
           start_time: {2, {:scalar, ""}, :string},
           trip_id: {1, {:scalar, ""}, :string}
@@ -11077,8 +11031,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -11641,8 +11594,7 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[start_times: msg.start_times ++ [Protox.Decode.validate_string!(delimited)]],
-                 rest}
+                {[start_times: msg.start_times ++ [Protox.Decode.validate_string!(delimited)]], rest}
 
               {3, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
@@ -11666,8 +11618,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -11723,14 +11674,10 @@
             }
       def defs() do
         %{
-          1 =>
-            {:selected_trips, :unpacked,
-             {:message, TransitRealtime.TripModifications.SelectedTrips}},
+          1 => {:selected_trips, :unpacked, {:message, TransitRealtime.TripModifications.SelectedTrips}},
           2 => {:start_times, :unpacked, :string},
           3 => {:service_dates, :unpacked, :string},
-          4 =>
-            {:modifications, :unpacked,
-             {:message, TransitRealtime.TripModifications.Modification}}
+          4 => {:modifications, :unpacked, {:message, TransitRealtime.TripModifications.Modification}}
         }
       end
 
@@ -11740,10 +11687,8 @@
             }
       def defs_by_name() do
         %{
-          modifications:
-            {4, :unpacked, {:message, TransitRealtime.TripModifications.Modification}},
-          selected_trips:
-            {1, :unpacked, {:message, TransitRealtime.TripModifications.SelectedTrips}},
+          modifications: {4, :unpacked, {:message, TransitRealtime.TripModifications.Modification}},
+          selected_trips: {1, :unpacked, {:message, TransitRealtime.TripModifications.SelectedTrips}},
           service_dates: {3, :unpacked, :string},
           start_times: {2, :unpacked, :string}
         }
@@ -12251,8 +12196,7 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   replacement_stops:
-                     msg.replacement_stops ++ [TransitRealtime.ReplacementStop.decode!(delimited)]
+                   replacement_stops: msg.replacement_stops ++ [TransitRealtime.ReplacementStop.decode!(delimited)]
                  ], rest}
 
               {5, _, bytes} ->
@@ -12268,8 +12212,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -12881,8 +12824,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -13385,8 +13327,7 @@
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -13443,14 +13384,11 @@
       def defs() do
         %{
           1 => {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
-          2 =>
-            {:stop_time_update, :unpacked, {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
+          2 => {:stop_time_update, :unpacked, {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
           3 => {:vehicle, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}},
           4 => {:timestamp, {:scalar, 0}, :uint64},
           5 => {:delay, {:scalar, 0}, :int32},
-          6 =>
-            {:trip_properties, {:scalar, nil},
-             {:message, TransitRealtime.TripUpdate.TripProperties}}
+          6 => {:trip_properties, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.TripProperties}}
         }
       end
 
@@ -13464,8 +13402,7 @@
           stop_time_update: {2, :unpacked, {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
           timestamp: {4, {:scalar, 0}, :uint64},
           trip: {1, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
-          trip_properties:
-            {6, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.TripProperties}},
+          trip_properties: {6, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.TripProperties}},
           vehicle: {3, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}}
         }
       end
@@ -13968,8 +13905,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -14509,9 +14445,7 @@
                    stop_time_properties:
                      Protox.MergeMessage.merge(
                        msg.stop_time_properties,
-                       TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties.decode!(
-                         delimited
-                       )
+                       TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties.decode!(delimited)
                      )
                  ], rest}
 
@@ -14525,8 +14459,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -14593,8 +14526,7 @@
             {:stop_time_properties, {:scalar, nil},
              {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}},
           7 =>
-            {:departure_occupancy_status, {:scalar, :EMPTY},
-             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
+            {:departure_occupancy_status, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
         }
       end
 
@@ -14606,16 +14538,13 @@
         %{
           arrival: {2, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
           departure: {3, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
-          departure_occupancy_status:
-            {7, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+          departure_occupancy_status: {7, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           schedule_relationship:
-            {5, {:scalar, :SCHEDULED},
-             {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}},
+            {5, {:scalar, :SCHEDULED}, {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}},
           stop_id: {4, {:scalar, ""}, :string},
           stop_sequence: {1, {:scalar, 0}, :uint32},
           stop_time_properties:
-            {6, {:scalar, nil},
-             {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}}
+            {6, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}}
         }
       end
     )
@@ -15161,8 +15090,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -15529,8 +15457,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -16078,8 +16005,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -16154,8 +16080,7 @@
           label: {2, {:scalar, ""}, :string},
           license_plate: {3, {:scalar, ""}, :string},
           wheelchair_accessible:
-            {4, {:scalar, :NO_VALUE},
-             {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}}
+            {4, {:scalar, :NO_VALUE}, {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}}
         }
       end
     )
@@ -16794,8 +16719,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -16854,22 +16778,16 @@
           1 => {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
           2 => {:position, {:scalar, nil}, {:message, TransitRealtime.Position}},
           3 => {:current_stop_sequence, {:scalar, 0}, :uint32},
-          4 =>
-            {:current_status, {:scalar, :IN_TRANSIT_TO},
-             {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
+          4 => {:current_status, {:scalar, :IN_TRANSIT_TO}, {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
           5 => {:timestamp, {:scalar, 0}, :uint64},
           6 =>
             {:congestion_level, {:scalar, :UNKNOWN_CONGESTION_LEVEL},
              {:enum, TransitRealtime.VehiclePosition.CongestionLevel}},
           7 => {:stop_id, {:scalar, ""}, :string},
           8 => {:vehicle, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}},
-          9 =>
-            {:occupancy_status, {:scalar, :EMPTY},
-             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+          9 => {:occupancy_status, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           10 => {:occupancy_percentage, {:scalar, 0}, :uint32},
-          11 =>
-            {:multi_carriage_details, :unpacked,
-             {:message, TransitRealtime.VehiclePosition.CarriageDetails}}
+          11 => {:multi_carriage_details, :unpacked, {:message, TransitRealtime.VehiclePosition.CarriageDetails}}
         }
       end
 
@@ -16880,17 +16798,12 @@
       def defs_by_name() do
         %{
           congestion_level:
-            {6, {:scalar, :UNKNOWN_CONGESTION_LEVEL},
-             {:enum, TransitRealtime.VehiclePosition.CongestionLevel}},
-          current_status:
-            {4, {:scalar, :IN_TRANSIT_TO},
-             {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
+            {6, {:scalar, :UNKNOWN_CONGESTION_LEVEL}, {:enum, TransitRealtime.VehiclePosition.CongestionLevel}},
+          current_status: {4, {:scalar, :IN_TRANSIT_TO}, {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
           current_stop_sequence: {3, {:scalar, 0}, :uint32},
-          multi_carriage_details:
-            {11, :unpacked, {:message, TransitRealtime.VehiclePosition.CarriageDetails}},
+          multi_carriage_details: {11, :unpacked, {:message, TransitRealtime.VehiclePosition.CarriageDetails}},
           occupancy_percentage: {10, {:scalar, 0}, :uint32},
-          occupancy_status:
-            {9, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+          occupancy_status: {9, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           position: {2, {:scalar, nil}, {:message, TransitRealtime.Position}},
           stop_id: {7, {:scalar, ""}, :string},
           timestamp: {5, {:scalar, 0}, :uint64},
@@ -17709,8 +17622,7 @@
                 {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(),
-                    [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -17769,8 +17681,7 @@
           1 => {:id, {:scalar, ""}, :string},
           2 => {:label, {:scalar, ""}, :string},
           3 =>
-            {:occupancy_status, {:scalar, :NO_DATA_AVAILABLE},
-             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+            {:occupancy_status, {:scalar, :NO_DATA_AVAILABLE}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           4 => {:occupancy_percentage, {:scalar, -1}, :int32},
           5 => {:carriage_sequence, {:scalar, 0}, :uint32}
         }
@@ -17786,9 +17697,7 @@
           id: {1, {:scalar, ""}, :string},
           label: {2, {:scalar, ""}, :string},
           occupancy_percentage: {4, {:scalar, -1}, :int32},
-          occupancy_status:
-            {3, {:scalar, :NO_DATA_AVAILABLE},
-             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
+          occupancy_status: {3, {:scalar, :NO_DATA_AVAILABLE}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
         }
       end
     )
