@@ -3,7 +3,7 @@ import Mta.Cache
 alias Mta.Cache.TimestampValue
 
 defmodule Mta.Cache.Test do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   @ets_undefined :undefined
   @table_type :set
