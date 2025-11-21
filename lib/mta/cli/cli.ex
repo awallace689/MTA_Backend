@@ -7,6 +7,13 @@ defmodule Mta.CLI do
           :start
           | :menu
 
+  defp api_client(), do: Application.get_env(:mta, :api_client, Mta.Io.Api.Http)
+
+  defp persistence_client(),
+    do: Application.get_env(:mta, :persistence_client, Mta.Io.Persistence.File)
+
+  defp stops_client(), do: Application.get_env(:mta, :stops_client, Mta.Io.Stops.File)
+
   def loop() do
     loop_rec(:start)
   end
@@ -60,18 +67,18 @@ defmodule Mta.CLI do
   def get_latest(write_files) do
     Mta.Cache.init()
 
-    feed_message = Mta.Io.Api.Http.get_feed_message_cached()
+    feed_message = api_client().get_feed_message_cached()
 
     if write_files do
-      Mta.Io.Persistence.File.write_feed_message_json(feed_message)
+      persistence_client().write_feed_message_json(feed_message)
 
-      Mta.Io.Persistence.File.write_file(
+      persistence_client().write_file(
         inspect(feed_message, limit: :infinity, pretty: true),
         "inspect__feed_message.ex"
       )
 
-      Mta.Io.Persistence.File.write_file(
-        inspect(Mta.Io.Stops.File.read_stops_cached(), limit: :infinity, pretty: true),
+      persistence_client().write_file(
+        inspect(stops_client().read_stops_cached(), limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
     end

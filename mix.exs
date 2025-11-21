@@ -23,13 +23,16 @@ defmodule Mta.MixProject do
   end
 
   def cli do
-    [preferred_envs: [t: :test]]
+    [preferred_envs: [t: :test, ts: :test]]
   end
 
   def aliases do
     [
       t: fn args ->
         Mix.Task.run("test", ["--cover", "--slowest", "3"] ++ args)
+      end,
+      ts: fn args ->
+        Mix.Task.run("test", ["--stale"] ++ args)
       end
     ]
   end
@@ -42,7 +45,8 @@ defmodule Mta.MixProject do
       {:nimble_csv, "~> 1.2"},
       {:jason, "~> 1.4"},
       {:elixir_uuid, "~> 1.2"},
-      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 end
