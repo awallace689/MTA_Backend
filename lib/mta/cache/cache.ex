@@ -3,7 +3,7 @@ defmodule Mta.Cache do
   Cached data. Implemented with :ets
   """
 
-  alias __MODULE__.TimestampValue
+  alias Mta.Cache.TimestampValue
 
   @dialyzer {:nowarn_function, {:init, 0}}
 

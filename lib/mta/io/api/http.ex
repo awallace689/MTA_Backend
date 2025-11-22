@@ -12,9 +12,7 @@ defmodule Mta.Io.Api.Http do
   end
 
   @spec get_feed_message_cached(number()) :: %TransitRealtime.FeedMessage{}
-  @doc """
-  FeedMessage containing MTA realtime data payload
-  """
+  @impl true
   def get_feed_message_cached(timeout_seconds \\ 20) do
     Mta.Cache.get_set_expired(@feed_message_key, timeout_seconds, &get_feed_message/0)
   end

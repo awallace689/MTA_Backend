@@ -3,16 +3,11 @@ defmodule Mta.CLI do
   Parse and format MTA GTFS and GTFS Realtime data
   """
 
+  alias Mta.CLI.Io
+
   @type state ::
           :start
           | :menu
-
-  defp api_client(), do: Application.get_env(:mta, :api_client, Mta.Io.Api.Http)
-
-  defp persistence_client(),
-    do: Application.get_env(:mta, :persistence_client, Mta.Io.Persistence.File)
-
-  defp stops_client(), do: Application.get_env(:mta, :stops_client, Mta.Io.Stops.File)
 
   def loop() do
     loop_rec(:start)
@@ -27,12 +22,12 @@ defmodule Mta.CLI do
         loop_rec(:menu)
 
       :menu ->
-        __MODULE__.Io.break()
-        __MODULE__.Io.display("1) Get message")
-        __MODULE__.Io.display("2) Get latest and save")
-        __MODULE__.Io.display("x) Exit")
+        Io.break()
+        Io.display("1) Get message")
+        Io.display("2) Get latest and save")
+        Io.display("x) Exit")
 
-        input = __MODULE__.Io.prompt(nil)
+        input = Io.prompt(nil)
         handle_menu(input)
 
         loop_rec(:menu)
@@ -41,7 +36,7 @@ defmodule Mta.CLI do
 
   @spec start(String.t()) :: :ok
   defp start(msg) do
-    __MODULE__.Io.display(msg)
+    Io.display(msg)
   end
 
   @spec handle_menu(String.t()) :: :ok
@@ -57,7 +52,7 @@ defmodule Mta.CLI do
         exit(:shutdown)
 
       invalid ->
-        __MODULE__.Io.display("Invalid input: #{ellipses(invalid, 30)}")
+        Io.display("Invalid input: #{ellipses(invalid, 30)}")
 
         loop_rec(:menu)
     end
@@ -67,18 +62,18 @@ defmodule Mta.CLI do
   def get_latest(write_files) do
     Mta.Cache.init()
 
-    feed_message = api_client().get_feed_message_cached()
+    feed_message = Mta.Io.Api.get_feed_message_cached()
 
     if write_files do
-      persistence_client().write_feed_message_json(feed_message)
+      Mta.Io.Persistence.write_feed_message_json(feed_message)
 
-      persistence_client().write_file(
+      Mta.Io.Persistence.write_file(
         inspect(feed_message, limit: :infinity, pretty: true),
         "inspect__feed_message.ex"
       )
 
-      persistence_client().write_file(
-        inspect(stops_client().read_stops_cached(), limit: :infinity, pretty: true),
+      Mta.Io.Persistence.write_file(
+        inspect(Mta.Io.Stops.read_stops_cached(), limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
     end

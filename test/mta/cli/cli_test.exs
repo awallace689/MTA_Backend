@@ -56,7 +56,7 @@ defmodule Mta.CLI.Test do
         ],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
@@ -73,7 +73,7 @@ defmodule Mta.CLI.Test do
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
@@ -92,7 +92,7 @@ defmodule Mta.CLI.Test do
         ],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
@@ -111,7 +111,7 @@ defmodule Mta.CLI.Test do
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
@@ -128,7 +128,7 @@ defmodule Mta.CLI.Test do
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
@@ -155,7 +155,7 @@ defmodule Mta.CLI.Test do
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
@@ -179,7 +179,7 @@ defmodule Mta.CLI.Test do
         ],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
-          timestamp: 1234567890
+          timestamp: 1_234_567_890
         }
       }
 
