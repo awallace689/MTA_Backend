@@ -39,7 +39,7 @@ defmodule Mta.CLI do
     Io.display(msg)
   end
 
-  @spec handle_menu(String.t()) :: :ok
+  @spec handle_menu(String.t()) :: no_return()
   defp handle_menu(input) do
     case input do
       "1" ->
@@ -62,7 +62,12 @@ defmodule Mta.CLI do
   def get_latest(write_files) do
     Mta.Cache.init()
 
-    feed_message = Mta.Io.Api.get_feed_message_cached()
+    feed_message =
+      Mta.Cache.get_set_expired(
+        Mta.Constants.CacheKey.feed_message(),
+        Mta.Constants.Timeouts.feed_message(),
+        &Mta.Io.Api.get_feed_message/0
+      )
 
     if write_files do
       Mta.Io.Persistence.write_feed_message_json(feed_message)

@@ -116,7 +116,7 @@ defmodule Mta.CLI.Test do
       }
 
       Mta.Io.Api.Mock
-      |> expect(:get_feed_message_cached, fn -> feed_message end)
+      |> expect(:get_feed_message, fn -> feed_message end)
 
       capture_io(fn ->
         assert CLI.get_latest(false) == :ok
@@ -135,7 +135,7 @@ defmodule Mta.CLI.Test do
       stops = %{}
 
       Mta.Io.Api.Mock
-      |> expect(:get_feed_message_cached, fn -> feed_message end)
+      |> expect(:get_feed_message, fn -> feed_message end)
 
       Mta.Io.Persistence.Mock
       |> expect(:write_feed_message_json, fn ^feed_message -> :ok end)
@@ -160,7 +160,7 @@ defmodule Mta.CLI.Test do
       }
 
       Mta.Io.Api.Mock
-      |> expect(:get_feed_message_cached, fn -> feed_message end)
+      |> expect(:get_feed_message, fn -> feed_message end)
 
       capture_io(fn ->
         assert CLI.get_latest(false) == :ok
@@ -184,7 +184,7 @@ defmodule Mta.CLI.Test do
       }
 
       Mta.Io.Api.Mock
-      |> expect(:get_feed_message_cached, fn -> feed_message end)
+      |> expect(:get_feed_message, fn -> feed_message end)
 
       output =
         capture_io(fn ->

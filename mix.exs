@@ -23,12 +23,12 @@ defmodule Mta.MixProject do
   end
 
   def cli do
-    [preferred_envs: [t: :test, ts: :test]]
+    [preferred_envs: [t: :test, ts: :test, pp: :test]]
   end
 
   def aliases do
     [
-      pp: ["cmd --shell CI=true .git/hooks/pre-push"],
+      pp: ["compile --warnings-as-errors", "format --check-formatted", "dialyzer", "t"],
       t: fn args ->
         Mix.Task.run("test", ["--cover", "--slowest", "3"] ++ args)
       end,
