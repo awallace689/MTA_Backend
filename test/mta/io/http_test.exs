@@ -4,7 +4,7 @@ defmodule Mta.Io.Api.Http.Test do
 
   setup {Req.Test, :verify_on_exit!}
 
-  describe "get_feed_message_cached" do
+  describe "get_feed_message" do
     @message %TransitRealtime.FeedMessage{
       entity: [],
       header: %TransitRealtime.FeedHeader{
@@ -30,9 +30,19 @@ defmodule Mta.Io.Api.Http.Test do
     end
 
     test "retries 3 times" do
-      Req.Test.expect(Mta.Io.Api.Http, 4, &Plug.Conn.send_resp(&1, 500, "Internal Server Error"))
+      code = 500
+      Req.Test.expect(Mta.Io.Api.Http, 4, &Plug.Conn.send_resp(&1, code, "Internal Server Error"))
 
-      assert_raise Mta.Io.Api.Http.FeedMessageError, "Failed to fetch feed message: HTTP 500", fn ->
+      assert_raise Mta.Io.Api.Http.FeedMessageError, "Bad response code: HTTP #{code}", fn ->
+        Http.get_feed_message()
+      end
+    end
+
+    test "logs when error returned from req" do
+      reason = :timeout
+      Req.Test.stub(Mta.Io.Api.Http, &Req.Test.transport_error(&1, reason))
+
+      assert_raise Mta.Io.Api.Http.FeedMessageError, "Request failed: %Req.TransportError{reason: :#{reason}}", fn ->
         Http.get_feed_message()
       end
     end

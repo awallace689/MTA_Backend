@@ -11,11 +11,14 @@ defmodule Mta.Io.Api.Http do
   def get_feed_message() do
     req_options = Application.fetch_env!(:mta, :feed_message_req_options)
 
-    {:ok, resp} =
-      Req.get(Keyword.merge([url: Mta.Constants.URL.mta_realtime_gtfs()], req_options))
+    resp =
+      case Req.get(Keyword.merge([url: Mta.Constants.URL.mta_realtime_gtfs()], req_options)) do
+        {:ok, resp} -> resp
+        {:error, reason} -> raise FeedMessageError, message: "Request failed: #{inspect(reason)}"
+      end
 
     if resp.status != 200 do
-      raise FeedMessageError, message: "Failed to fetch feed message: HTTP #{resp.status}"
+      raise FeedMessageError, message: "Bad response code: HTTP #{resp.status}"
     end
 
     Protox.decode!(resp.body, TransitRealtime.FeedMessage)
