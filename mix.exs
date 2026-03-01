@@ -28,6 +28,7 @@ defmodule Mta.MixProject do
 
   def aliases do
     [
+      pp: ["cmd .git/hooks/pre-push"],
       t: fn args ->
         Mix.Task.run("test", ["--cover", "--slowest", "3"] ++ args)
       end,
