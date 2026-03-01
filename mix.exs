@@ -46,6 +46,7 @@ defmodule Mta.MixProject do
       {:jason, "~> 1.4"},
       {:elixir_uuid, "~> 1.2"},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:plug, "~> 1.19", only: :test},
       {:mox, "~> 1.0", only: :test}
     ]
   end
