@@ -13,7 +13,7 @@ defmodule Mta.CLI do
     loop_rec(:start)
   end
 
-  @spec loop_rec(state()) :: :ok
+  @spec loop_rec(state()) :: no_return()
   defp loop_rec(state) do
     case state do
       :start ->
