@@ -1,0 +1,9 @@
+#!/bin/sh
+
+branch=$(git symbolic-ref --short HEAD)
+if [ "$branch" == "main" ]; then
+	mix compile --warnings-as-errors && mix format --check-formatted && mix dialyzer
+	exit $?
+fi
+
+exit 0

@@ -27,5 +27,3 @@ mta-*.tar
 
 # Output files
 /out/
-
-.git/
