@@ -3,8 +3,10 @@ defmodule Mta.Io.Api.Http do
 
   @feed_message_key :mta_io_api__get_feed_message_key
 
-  @spec get_feed_message() :: %TransitRealtime.FeedMessage{}
-  defp get_feed_message() do
+  @spec get_feed_message(options: keyword()) :: %TransitRealtime.FeedMessage{}
+  defp get_feed_message(options \\ []) do
+    req_options = Keyword.merge([url: Mta.Constants.URL.mta_realtime_gtfs()], options)
+
     {:ok, resp} =
       Req.get(Mta.Constants.URL.mta_realtime_gtfs())
 
