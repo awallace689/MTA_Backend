@@ -7,8 +7,7 @@ defmodule Mta.Io.Api.Http do
   defp get_feed_message(options \\ []) do
     req_options = Keyword.merge([url: Mta.Constants.URL.mta_realtime_gtfs()], options)
 
-    {:ok, resp} =
-      Req.get(Mta.Constants.URL.mta_realtime_gtfs())
+    {:ok, resp} = Req.get(req_options)
 
     Protox.decode!(resp.body, TransitRealtime.FeedMessage)
   end
