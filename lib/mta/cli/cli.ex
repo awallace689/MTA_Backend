@@ -77,25 +77,29 @@ defmodule Mta.CLI do
         "inspect__feed_message.ex"
       )
 
+      stops =
+        Mta.Cache.get_set_expired(
+          Mta.Constants.CacheKey.stops(),
+          Mta.Constants.Timeouts.stops(),
+          &Mta.Io.Stops.read_stops/0
+        )
+
       Mta.Io.Persistence.write_file(
-        inspect(Mta.Io.Stops.read_stops_cached(), limit: :infinity, pretty: true),
+        inspect(stops, limit: :infinity, pretty: true),
         "inspect__stops.ex"
       )
     end
 
-    print_messages(feed_message)
-
     :ok
   end
 
-  @spec print_messages(%TransitRealtime.FeedMessage{}) :: :ok
-  def print_messages(feed_message) do
+  @spec get_vehicles(%TransitRealtime.FeedMessage{}) :: :ok
+  def get_vehicles(feed_message) do
     feed_message.entity
     |> Enum.filter(
       &(Mta.Parser.FeedMessage.is_feed_entity?(&1) and
           Mta.Parser.FeedEntity.has_vehicle?(&1))
     )
-    |> tap(&IO.puts("Subway Count: #{length(&1)}"))
 
     :ok
   end

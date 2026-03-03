@@ -7,4 +7,6 @@ Application.put_env(:mta, :persistence_client, Mta.Io.Persistence.Mock)
 Mox.defmock(Mta.Io.Stops.Mock, for: Mta.Io.Stops)
 Application.put_env(:mta, :stops_client, Mta.Io.Stops.Mock)
 
+Application.put_env(:mta, :out_dir, "./test/out/")
+
 ExUnit.start()

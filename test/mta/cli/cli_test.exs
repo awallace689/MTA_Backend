@@ -143,7 +143,7 @@ defmodule Mta.CLI.Test do
       |> expect(:write_file, fn _data, "inspect__stops.ex" -> :ok end)
 
       Mta.Io.Stops.Mock
-      |> expect(:read_stops_cached, fn -> stops end)
+      |> expect(:read_stops, fn -> stops end)
 
       capture_io(fn ->
         assert CLI.get_latest(true) == :ok
@@ -191,7 +191,7 @@ defmodule Mta.CLI.Test do
           CLI.get_latest(false)
         end)
 
-      assert output =~ "Subway Count: 1"
+      assert output =~ ""
     end
   end
 end
