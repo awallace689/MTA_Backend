@@ -7,13 +7,7 @@ defmodule Mta.Io.Persistence.File do
   @spec write_file(iodata(), String.t()) :: :ok
   @impl true
   def write_file(data, filename, print_log \\ true) do
-    unless File.dir?(out_dir()) do
-      File.mkdir(out_dir() <> filename)
-    end
-
-    path =
-      (out_dir() <> filename)
-      |> tap(&IO.puts("path:" <> &1))
+    path = out_dir() <> filename
 
     File.write!(path, data, [:write])
 

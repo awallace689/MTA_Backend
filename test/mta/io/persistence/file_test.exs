@@ -4,8 +4,9 @@ defmodule Mta.Io.Persistence.File.Test do
   alias Mta.Io.Persistence
 
   @dir "mta_io_persistence_file_test/"
+  @filename "test.txt"
 
-  setup do
+  setup_all do
     out_dir = Application.get_env(:mta, :out_dir)
     dir_path = out_dir <> @dir
 
@@ -21,14 +22,33 @@ defmodule Mta.Io.Persistence.File.Test do
     [dir_path: dir_path]
   end
 
+  setup context do
+    if !context.dir_path do
+      raise "dir_path not defined"
+    end
+
+    on_exit(fn -> File.rm(context.dir_path <> @filename) end)
+
+    :ok
+  end
+
   describe "write_file" do
     test "writes data to new file at path", context do
-      filename = "file.txt"
       value = "test"
 
-      Persistence.File.write_file(value, @dir <> filename, false)
+      Persistence.File.write_file(value, @dir <> @filename, false)
 
-      written = File.read!(context.dir_path <> filename)
+      written = File.read!(context.dir_path <> @filename)
+      assert written == value
+    end
+
+    test "overwrites data if file exists", context do
+      value = "test"
+
+      File.write!(context.dir_path <> @filename, "old value")
+      Persistence.File.write_file(value, @dir <> @filename, false)
+
+      written = File.read!(context.dir_path <> @filename)
       assert written == value
     end
   end
