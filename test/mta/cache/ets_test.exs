@@ -1,8 +1,8 @@
-import Mta.Cache
+import Mta.Cache.Ets
 
 alias Mta.Cache.TimestampValue
 
-defmodule Mta.Cache.Test do
+defmodule Mta.Cache.Ets.Test do
   use ExUnit.Case, async: false
 
   @ets_undefined :undefined

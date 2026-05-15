@@ -1,3 +1,6 @@
+Mox.defmock(Mta.Cache.Mock, for: Mta.Cache)
+Application.put_env(:mta, :cache_client, Mta.Cache.Mock)
+
 Mox.defmock(Mta.Io.Api.Mock, for: Mta.Io.Api)
 Application.put_env(:mta, :api_client, Mta.Io.Api.Mock)
 

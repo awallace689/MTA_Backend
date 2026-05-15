@@ -1,56 +1,25 @@
 defmodule Mta.Cache do
   @moduledoc """
-  Cached data. Implemented with :ets
+  Cached data.
   """
 
-  alias Mta.Cache.TimestampValue
+  @callback init() :: [{atom(), term()}]
+  @callback clear_key(term()) :: true
+  @callback get_set_expired(atom(), number() | :no_timeout, fun()) :: term()
 
-  @dialyzer {:nowarn_function, {:init, 0}}
-
-  @type info_list :: {atom(), term()}
-
-  @table_key :mta_cache__table_key
-  @ets_undefined :undefined
-
-  @spec init() :: info_list()
-  @doc """
-  Initialize the data cache. Must be called before accessing any data.
-  """
   def init() do
-    case :ets.info(@table_key) do
-      @ets_undefined ->
-        :ets.info(:ets.new(@table_key, [:set, :named_table]))
-
-      info ->
-        info
-    end
+    impl().init()
   end
 
-  @spec clear_key(term()) :: true
   def clear_key(key) do
-    :ets.delete(@table_key, key)
+    impl().clear_key(key)
   end
 
-  @spec get_set_expired(atom(), number() | :no_timeout, fun()) :: term()
   def get_set_expired(key, timeout_seconds, load) do
-    kv = :ets.lookup(@table_key, key)
+    impl().get_set_expired(key, timeout_seconds, load)
+  end
 
-    use_cache =
-      kv != [] && !TimestampValue.expired?(kv[key].timestamp, timeout_seconds)
-
-    case(use_cache) do
-      false ->
-        data = load.()
-
-        :ets.insert(
-          @table_key,
-          {key, TimestampValue.new(data)}
-        )
-
-        data
-
-      true ->
-        kv[key].value
-    end
+  defp impl() do
+    Application.get_env(:mta, :cache_client, Mta.Cache.Ets)
   end
 end

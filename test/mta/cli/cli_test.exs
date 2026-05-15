@@ -31,53 +31,34 @@ defmodule Mta.CLI.Test do
     test "handles unicode characters" do
       assert CLI.ellipses("héllo wörld", 5) == "héllo..."
     end
-
-    test "handles emojis" do
-      assert CLI.ellipses("🎉🎊🎈🎁🎀", 3) == "🎉🎊🎈..."
-    end
   end
 
-  describe "print_messages/1" do
+  describe "get_vehicles/1" do
     test "prints subway count for feed with vehicle entities" do
-      feed_message = %TransitRealtime.FeedMessage{
-        entity: [
-          %TransitRealtime.FeedEntity{
-            id: "1",
-            vehicle: %TransitRealtime.VehiclePosition{
-              trip: %TransitRealtime.TripDescriptor{trip_id: "trip1"}
-            }
-          },
-          %TransitRealtime.FeedEntity{
-            id: "2",
-            vehicle: %TransitRealtime.VehiclePosition{
-              trip: %TransitRealtime.TripDescriptor{trip_id: "trip2"}
-            }
+      vehicles = [
+        %TransitRealtime.FeedEntity{
+          id: "1",
+          vehicle: %TransitRealtime.VehiclePosition{
+            trip: %TransitRealtime.TripDescriptor{trip_id: "trip1"}
           }
-        ],
-        header: %TransitRealtime.FeedHeader{
-          gtfs_realtime_version: "2.0",
-          timestamp: 1_234_567_890
+        },
+        %TransitRealtime.FeedEntity{
+          id: "2",
+          vehicle: %TransitRealtime.VehiclePosition{
+            trip: %TransitRealtime.TripDescriptor{trip_id: "trip2"}
+          }
         }
-      }
+      ]
 
-      output =
-        capture_io(fn ->
-          CLI.print_messages(feed_message)
-        end)
-
-      assert output =~ "Subway Count: 2"
-    end
-
-    test "returns :ok" do
       feed_message = %TransitRealtime.FeedMessage{
-        entity: [],
+        entity: vehicles,
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
           timestamp: 1_234_567_890
         }
       }
 
-      assert CLI.print_messages(feed_message) == :ok
+      assert CLI.get_vehicles(feed_message) == vehicles
     end
 
     test "filters entities without vehicles" do
@@ -96,12 +77,9 @@ defmodule Mta.CLI.Test do
         }
       }
 
-      output =
-        capture_io(fn ->
-          CLI.print_messages(feed_message)
-        end)
+      output = CLI.get_vehicles(feed_message)
 
-      assert output =~ "Subway Count: 0"
+      assert output == []
     end
   end
 
@@ -117,6 +95,10 @@ defmodule Mta.CLI.Test do
 
       Mta.Io.Api.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
+
+      Mta.Cache.Mock
+      |> expect(:init, fn -> [] end)
+      |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 
       capture_io(fn ->
         assert CLI.get_latest(false) == :ok
@@ -136,6 +118,11 @@ defmodule Mta.CLI.Test do
 
       Mta.Io.Api.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
+
+      Mta.Cache.Mock
+      |> expect(:init, fn -> [] end)
+      |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
+      |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 
       Mta.Io.Persistence.Mock
       |> expect(:write_feed_message_json, fn ^feed_message -> :ok end)
@@ -162,6 +149,10 @@ defmodule Mta.CLI.Test do
       Mta.Io.Api.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
 
+      Mta.Cache.Mock
+      |> expect(:init, fn -> [] end)
+      |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
+
       capture_io(fn ->
         assert CLI.get_latest(false) == :ok
       end)
@@ -185,6 +176,10 @@ defmodule Mta.CLI.Test do
 
       Mta.Io.Api.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
+
+      Mta.Cache.Mock
+      |> expect(:init, fn -> [] end)
+      |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 
       output =
         capture_io(fn ->

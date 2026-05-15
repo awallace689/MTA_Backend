@@ -15,7 +15,7 @@ defmodule Mta.Io.Persistence.File.Test do
       {:error, :enoent} -> :ok
     end
 
-    File.mkdir!(dir_path)
+    File.mkdir_p!(dir_path)
 
     on_exit(fn -> File.rm_rf!(dir_path) end)
 

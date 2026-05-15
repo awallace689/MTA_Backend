@@ -93,15 +93,13 @@ defmodule Mta.CLI do
     :ok
   end
 
-  @spec get_vehicles(%TransitRealtime.FeedMessage{}) :: :ok
+  @spec get_vehicles(%TransitRealtime.FeedMessage{}) :: %TransitRealtime.FeedEntity{}
   def get_vehicles(feed_message) do
     feed_message.entity
     |> Enum.filter(
       &(Mta.Parser.FeedMessage.is_feed_entity?(&1) and
           Mta.Parser.FeedEntity.has_vehicle?(&1))
     )
-
-    :ok
   end
 
   @spec ellipses(String.t(), number()) :: String.t()
