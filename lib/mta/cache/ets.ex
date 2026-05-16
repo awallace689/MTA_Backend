@@ -7,14 +7,10 @@ defmodule Mta.Cache.Ets do
 
   alias Mta.Cache.TimestampValue
 
-  @dialyzer {:nowarn_function, {:init, 0}}
-
-  @type info_list :: {atom(), term()}
-
   @table_key :mta_cache__table_key
   @ets_undefined :undefined
 
-  @spec init() :: info_list()
+  @spec init() :: keyword()
   def init() do
     case :ets.info(@table_key) do
       @ets_undefined ->

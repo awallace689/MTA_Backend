@@ -29,7 +29,7 @@ defmodule Mta.MixProject do
 
   def aliases do
     [
-      pp: ["compile --warnings-as-errors", "format --check-formatted", "dialyzer", "t"],
+      pp: ["compile --warnings-as-errors", "format --check-formatted", "dialyzer", "t", "credo"],
       t: fn args ->
         Mix.Task.run("test", ["--cover", "--slowest", "3"] ++ args)
       end,
@@ -47,6 +47,7 @@ defmodule Mta.MixProject do
       {:nimble_csv, "~> 1.2"},
       {:jason, "~> 1.4"},
       {:elixir_uuid, "~> 1.2"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:plug, "~> 1.19", only: :test},
       {:mox, "~> 1.0", only: :test}

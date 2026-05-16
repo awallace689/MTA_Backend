@@ -93,7 +93,7 @@ defmodule Mta.CLI do
     :ok
   end
 
-  @spec get_vehicles(%TransitRealtime.FeedMessage{}) :: %TransitRealtime.FeedEntity{}
+  @spec get_vehicles(%TransitRealtime.FeedMessage{}) :: [%TransitRealtime.FeedEntity{}]
   def get_vehicles(feed_message) do
     feed_message.entity
     |> Enum.filter(
