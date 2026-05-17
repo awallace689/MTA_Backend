@@ -76,7 +76,7 @@ defmodule MTA.CLI do
     :ok
   end
 
-  @spec write_files(%TransitRealtime.FeedMessage{}) :: :ok
+  @spec write_files(MTA.Models.FeedMessage.t()) :: :ok
   defp write_files(feed_message) do
     MTA.IO.Persistence.write_feed_message_json(feed_message)
 
@@ -100,11 +100,11 @@ defmodule MTA.CLI do
     :ok
   end
 
-  @spec get_vehicles(%TransitRealtime.FeedMessage{}) :: [%TransitRealtime.FeedEntity{}]
+  @spec get_vehicles(MTA.Models.FeedMessage.t()) :: [MTA.Models.FeedEntity.t()]
   def get_vehicles(feed_message) do
     feed_message.entity
     |> Enum.filter(
-      &(MTA.Parser.FeedMessage.is_feed_entity?(&1) and
+      &(MTA.Parser.FeedMessage.feed_entity?(&1) and
           MTA.Parser.FeedEntity.has_vehicle?(&1))
     )
   end

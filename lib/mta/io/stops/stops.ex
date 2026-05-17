@@ -1,7 +1,7 @@
 defmodule MTA.IO.Stops do
-  @callback read_stops() :: %{String.t() => %MTA.Models.Stop{}}
+  @callback read_stops() :: %{String.t() => MTA.Models.Stop.t()}
 
-  @spec read_stops() :: %{String.t() => %MTA.Models.Stop{}}
+  @spec read_stops() :: %{String.t() => MTA.Models.Stop.t()}
   def read_stops() do
     impl().read_stops()
   end

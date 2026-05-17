@@ -7,7 +7,7 @@ defmodule MTA.IO.API.HTTP do
 
   @behaviour MTA.IO.API
 
-  @spec get_feed_message() :: %TransitRealtime.FeedMessage{}
+  @spec get_feed_message() :: MTA.Models.FeedMessage.t()
   def get_feed_message() do
     req_options = Application.fetch_env!(:mta, :feed_message_req_options)
 
@@ -21,6 +21,12 @@ defmodule MTA.IO.API.HTTP do
       raise FeedMessageError, message: "Bad response code: HTTP #{resp.status}"
     end
 
-    Protox.decode!(resp.body, TransitRealtime.FeedMessage)
+    feed_message = Protox.decode!(resp.body, TransitRealtime.FeedMessage)
+
+    %MTA.Models.FeedMessage{
+      header: feed_message.header,
+      entity: Enum.map(feed_message.entity, &struct(MTA.Models.FeedEntity, Map.from_struct(&1))),
+      __uf__: feed_message.__uf__
+    }
   end
 end

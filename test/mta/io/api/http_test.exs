@@ -5,16 +5,12 @@ defmodule MTA.IO.API.HTTP.Test do
   setup {Req.Test, :verify_on_exit!}
 
   describe "get_feed_message" do
-    @message %TransitRealtime.FeedMessage{
-      entity: [],
-      header: %TransitRealtime.FeedHeader{
-        gtfs_realtime_version: "2.0",
-        timestamp: 1_234_567_890
-      }
-    }
+    @header %TransitRealtime.FeedHeader{gtfs_realtime_version: "2.0", timestamp: 1_234_567_890}
+    @tr_message %TransitRealtime.FeedMessage{entity: [], header: @header}
+    @message %MTA.Models.FeedMessage{entity: [], header: @header}
 
     test "calls returns decoded response" do
-      protobuf_binary = Protox.encode!(@message) |> IO.iodata_to_binary()
+      protobuf_binary = Protox.encode!(@tr_message) |> IO.iodata_to_binary()
 
       Req.Test.stub(MTA.IO.API.HTTP, &Plug.Conn.send_resp(&1, 200, IO.iodata_to_binary(protobuf_binary)))
 
@@ -22,7 +18,7 @@ defmodule MTA.IO.API.HTTP.Test do
     end
 
     test "recovers on successful retry" do
-      protobuf_binary = Protox.encode!(@message) |> IO.iodata_to_binary()
+      protobuf_binary = Protox.encode!(@tr_message) |> IO.iodata_to_binary()
       Req.Test.expect(MTA.IO.API.HTTP, 2, &Plug.Conn.send_resp(&1, 500, "Internal Server Error"))
       Req.Test.expect(MTA.IO.API.HTTP, 1, &Plug.Conn.send_resp(&1, 200, protobuf_binary))
 

@@ -21,10 +21,16 @@ defmodule MTA.IO.Persistence.File do
     write_file(json_iodata, filename)
   end
 
-  @spec write_feed_message_json(%TransitRealtime.FeedMessage{}) :: :ok
+  @spec write_feed_message_json(MTA.Models.FeedMessage.t()) :: :ok
   @impl true
-  def write_feed_message_json(%TransitRealtime.FeedMessage{} = message) do
-    write_struct_to_json(message, "FeedMessage.json")
+  def write_feed_message_json(%MTA.Models.FeedMessage{} = message) do
+    tr_message = %TransitRealtime.FeedMessage{
+      header: message.header,
+      entity: Enum.map(message.entity, &struct(TransitRealtime.FeedEntity, Map.from_struct(&1))),
+      __uf__: message.__uf__
+    }
+
+    write_struct_to_json(tr_message, "FeedMessage.json")
   end
 
   @impl true

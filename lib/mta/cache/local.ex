@@ -7,7 +7,7 @@ defmodule MTA.Cache.Local do
 
   @local_response_key :local
 
-  @spec feed_message(String.t() | nil) :: %TransitRealtime.FeedMessage{}
+  @spec feed_message(String.t() | nil) :: MTA.Models.FeedMessage.t()
   @doc """
   Map of stop ID to stop struct. Data provided by MTA GTFS.
   """

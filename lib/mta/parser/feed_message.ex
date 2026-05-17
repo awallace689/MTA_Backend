@@ -1,6 +1,6 @@
 defmodule MTA.Parser.FeedMessage do
-  @spec is_feed_entity?(term()) :: boolean()
-  def is_feed_entity?(%TransitRealtime.FeedEntity{} = _), do: true
+  @spec feed_entity?(term()) :: boolean()
+  def feed_entity?(%MTA.Models.FeedEntity{} = _), do: true
 
-  def is_feed_entity?(_), do: false
+  def feed_entity?(_), do: false
 end

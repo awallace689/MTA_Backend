@@ -3,7 +3,7 @@ alias NimbleCSV.RFC4180, as: CSV
 defmodule MTA.IO.Stops.File do
   @behaviour MTA.IO.Stops
 
-  @spec read_stops() :: %{String.t() => %MTA.Models.Stop{}}
+  @spec read_stops() :: %{String.t() => MTA.Models.Stop.t()}
   def read_stops do
     File.stream!("lib/defs/gtfs_subway/stops.txt")
     |> CSV.parse_stream()

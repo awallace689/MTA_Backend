@@ -36,13 +36,13 @@ defmodule MTA.CLI.Test do
   describe "get_vehicles/1" do
     test "prints subway count for feed with vehicle entities" do
       vehicles = [
-        %TransitRealtime.FeedEntity{
+        %MTA.Models.FeedEntity{
           id: "1",
           vehicle: %TransitRealtime.VehiclePosition{
             trip: %TransitRealtime.TripDescriptor{trip_id: "trip1"}
           }
         },
-        %TransitRealtime.FeedEntity{
+        %MTA.Models.FeedEntity{
           id: "2",
           vehicle: %TransitRealtime.VehiclePosition{
             trip: %TransitRealtime.TripDescriptor{trip_id: "trip2"}
@@ -50,7 +50,7 @@ defmodule MTA.CLI.Test do
         }
       ]
 
-      feed_message = %TransitRealtime.FeedMessage{
+      feed_message = %MTA.Models.FeedMessage{
         entity: vehicles,
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
@@ -62,9 +62,9 @@ defmodule MTA.CLI.Test do
     end
 
     test "filters entities without vehicles" do
-      feed_message = %TransitRealtime.FeedMessage{
+      feed_message = %MTA.Models.FeedMessage{
         entity: [
-          %TransitRealtime.FeedEntity{
+          %MTA.Models.FeedEntity{
             id: "1",
             trip_update: %TransitRealtime.TripUpdate{
               trip: %TransitRealtime.TripDescriptor{trip_id: "trip1"}
@@ -85,7 +85,7 @@ defmodule MTA.CLI.Test do
 
   describe "get_latest/1" do
     test "calls api_client and returns :ok when write_files is false" do
-      feed_message = %TransitRealtime.FeedMessage{
+      feed_message = %MTA.Models.FeedMessage{
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
@@ -106,7 +106,7 @@ defmodule MTA.CLI.Test do
     end
 
     test "calls persistence_client when write_files is true" do
-      feed_message = %TransitRealtime.FeedMessage{
+      feed_message = %MTA.Models.FeedMessage{
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
@@ -138,7 +138,7 @@ defmodule MTA.CLI.Test do
     end
 
     test "does not call persistence_client when write_files is false" do
-      feed_message = %TransitRealtime.FeedMessage{
+      feed_message = %MTA.Models.FeedMessage{
         entity: [],
         header: %TransitRealtime.FeedHeader{
           gtfs_realtime_version: "2.0",
@@ -159,9 +159,9 @@ defmodule MTA.CLI.Test do
     end
 
     test "prints messages from feed" do
-      feed_message = %TransitRealtime.FeedMessage{
+      feed_message = %MTA.Models.FeedMessage{
         entity: [
-          %TransitRealtime.FeedEntity{
+          %MTA.Models.FeedEntity{
             id: "1",
             vehicle: %TransitRealtime.VehiclePosition{
               trip: %TransitRealtime.TripDescriptor{trip_id: "trip1"}

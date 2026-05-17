@@ -1,7 +1,7 @@
 defmodule MTA.IO.API do
-  @callback get_feed_message() :: %TransitRealtime.FeedMessage{}
+  @callback get_feed_message() :: MTA.Models.FeedMessage.t()
 
-  @spec get_feed_message() :: %TransitRealtime.FeedMessage{}
+  @spec get_feed_message() :: MTA.Models.FeedMessage.t()
   def get_feed_message() do
     impl().get_feed_message()
   end

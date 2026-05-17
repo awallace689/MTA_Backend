@@ -5,7 +5,7 @@ defmodule MTA.IO.Persistence do
   @callback write_file(iodata(), String.t()) :: :ok
   @callback write_file(iodata(), String.t(), boolean()) :: :ok
   @callback write_struct_to_json(struct(), String.t()) :: :ok
-  @callback write_feed_message_json(%TransitRealtime.FeedMessage{}) :: :ok
+  @callback write_feed_message_json(MTA.Models.FeedMessage.t()) :: :ok
   @callback read_inspect_file(String.t()) :: binary()
 
   def write_file(data, filename) do
@@ -20,7 +20,7 @@ defmodule MTA.IO.Persistence do
     impl().write_struct_to_json(struct, filename)
   end
 
-  def write_feed_message_json(%TransitRealtime.FeedMessage{} = message) do
+  def write_feed_message_json(%MTA.Models.FeedMessage{} = message) do
     impl().write_feed_message_json(message)
   end
 
