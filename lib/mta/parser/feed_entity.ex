@@ -1,4 +1,4 @@
-defmodule Mta.Parser.FeedEntity do
+defmodule MTA.Parser.FeedEntity do
   @spec is_deleted?(%TransitRealtime.FeedEntity{}) :: boolean()
   def is_deleted?(%TransitRealtime.FeedEntity{} = feed_entity),
     do: feed_entity.is_deleted == true

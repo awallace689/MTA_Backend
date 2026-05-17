@@ -1,5 +1,5 @@
-defmodule Mta.Io.Persistence.File do
-  @behaviour Mta.Io.Persistence
+defmodule MTA.IO.Persistence.File do
+  @behaviour MTA.IO.Persistence
   @moduledoc """
   Utility functions for reading and writing project data
   """
@@ -21,7 +21,7 @@ defmodule Mta.Io.Persistence.File do
     write_file(json_iodata, filename)
   end
 
-  @spec write_feed_message_json(%Mta.Models.TransitRealtime.FeedMessage{}) :: :ok
+  @spec write_feed_message_json(%TransitRealtime.FeedMessage{}) :: :ok
   @impl true
   def write_feed_message_json(%TransitRealtime.FeedMessage{} = message) do
     write_struct_to_json(message, "FeedMessage.json")

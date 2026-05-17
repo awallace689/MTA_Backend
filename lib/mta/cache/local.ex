@@ -1,6 +1,6 @@
-alias Mta.Cache
+alias MTA.Cache
 
-defmodule Mta.Cache.Local do
+defmodule MTA.Cache.Local do
   @moduledoc """
   Locally-stored mock responses for offline dev
   """

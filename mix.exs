@@ -1,4 +1,4 @@
-defmodule Mta.MixProject do
+defmodule MTA.MixProject do
   use Mix.Project
 
   def project do
@@ -10,7 +10,7 @@ defmodule Mta.MixProject do
       deps: deps(),
       aliases: aliases(),
       test_coverage: [
-        ignore_modules: [~r/^TransitRealtime\./, ~r/^Mta\.Constants\./, ~r/^Mix\.Tasks\./],
+        ignore_modules: [~r/^TransitRealtime\./, ~r/^MTA\.Constants\./, ~r/^Mix\.Tasks\./],
         summary: [threshold: 70]
       ]
     ]

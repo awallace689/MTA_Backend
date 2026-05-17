@@ -1,7 +1,7 @@
-defmodule Mta.Io.Persistence.File.Test do
+defmodule MTA.IO.Persistence.File.Test do
   use ExUnit.Case, async: false
 
-  alias Mta.Io.Persistence
+  alias MTA.IO.Persistence
 
   @dir "mta_io_persistence_file_test/"
   @filename "test.txt"

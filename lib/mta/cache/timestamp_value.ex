@@ -1,4 +1,4 @@
-defmodule Mta.Cache.TimestampValue do
+defmodule MTA.Cache.TimestampValue do
   defstruct timestamp: nil, value: nil
 
   @spec new(term()) :: %__MODULE__{}

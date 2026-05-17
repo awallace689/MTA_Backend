@@ -1,9 +1,9 @@
-defmodule Mix.Tasks.Cli do
+defmodule Mix.Tasks.CLI do
   use Mix.Task
 
   def run(_) do
     Mix.Task.run("app.start")
 
-    Mta.CLI.loop()
+    MTA.CLI.loop()
   end
 end

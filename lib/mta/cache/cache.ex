@@ -1,4 +1,4 @@
-defmodule Mta.Cache do
+defmodule MTA.Cache do
   @moduledoc """
   Cached data.
   """
@@ -20,6 +20,6 @@ defmodule Mta.Cache do
   end
 
   defp impl() do
-    Application.get_env(:mta, :cache_client, Mta.Cache.Ets)
+    Application.get_env(:mta, :cache_client, MTA.Cache.ETS)
   end
 end

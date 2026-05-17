@@ -1,4 +1,4 @@
-defmodule Mta.Constants.Timeouts do
+defmodule MTA.Constants.Timeouts do
   @doc """
   Default timeout for MTA message call, in seconds
   """

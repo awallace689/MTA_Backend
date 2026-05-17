@@ -1,11 +1,11 @@
-defmodule Mta.Cache.Ets do
+defmodule MTA.Cache.ETS do
   @moduledoc """
   Cached data. Implemented with :ets
   """
 
-  @behaviour Mta.Cache
+  @behaviour MTA.Cache
 
-  alias Mta.Cache.TimestampValue
+  alias MTA.Cache.TimestampValue
 
   @table_key :mta_cache__table_key
   @ets_undefined :undefined

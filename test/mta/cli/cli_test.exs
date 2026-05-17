@@ -1,9 +1,9 @@
-defmodule Mta.CLI.Test do
+defmodule MTA.CLI.Test do
   use ExUnit.Case, async: true
   import ExUnit.CaptureIO
   import Mox
 
-  alias Mta.CLI
+  alias MTA.CLI
 
   setup :verify_on_exit!
 
@@ -93,10 +93,10 @@ defmodule Mta.CLI.Test do
         }
       }
 
-      Mta.Io.Api.Mock
+      MTA.IO.API.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
 
-      Mta.Cache.Mock
+      MTA.Cache.Mock
       |> expect(:init, fn -> [] end)
       |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 
@@ -116,20 +116,20 @@ defmodule Mta.CLI.Test do
 
       stops = %{}
 
-      Mta.Io.Api.Mock
+      MTA.IO.API.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
 
-      Mta.Cache.Mock
+      MTA.Cache.Mock
       |> expect(:init, fn -> [] end)
       |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
       |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 
-      Mta.Io.Persistence.Mock
+      MTA.IO.Persistence.Mock
       |> expect(:write_feed_message_json, fn ^feed_message -> :ok end)
       |> expect(:write_file, fn _data, "inspect__feed_message.ex" -> :ok end)
       |> expect(:write_file, fn _data, "inspect__stops.ex" -> :ok end)
 
-      Mta.Io.Stops.Mock
+      MTA.IO.Stops.Mock
       |> expect(:read_stops, fn -> stops end)
 
       capture_io(fn ->
@@ -146,10 +146,10 @@ defmodule Mta.CLI.Test do
         }
       }
 
-      Mta.Io.Api.Mock
+      MTA.IO.API.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
 
-      Mta.Cache.Mock
+      MTA.Cache.Mock
       |> expect(:init, fn -> [] end)
       |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 
@@ -174,10 +174,10 @@ defmodule Mta.CLI.Test do
         }
       }
 
-      Mta.Io.Api.Mock
+      MTA.IO.API.Mock
       |> expect(:get_feed_message, fn -> feed_message end)
 
-      Mta.Cache.Mock
+      MTA.Cache.Mock
       |> expect(:init, fn -> [] end)
       |> expect(:get_set_expired, fn _key, _timeout, load -> load.() end)
 

@@ -1,4 +1,4 @@
-defmodule Mta.Constants.Text do
+defmodule MTA.Constants.Text do
   def prompt_start(),
     do: ~S"""
     __/\\\\\____________/\\\\______________________________

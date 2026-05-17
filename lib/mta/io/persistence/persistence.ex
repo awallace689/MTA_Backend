@@ -1,4 +1,4 @@
-defmodule Mta.Io.Persistence do
+defmodule MTA.IO.Persistence do
   @moduledoc """
   Utility functions for reading and writing project data
   """
@@ -29,6 +29,6 @@ defmodule Mta.Io.Persistence do
   end
 
   defp impl() do
-    Application.get_env(:mta, :persistence_client, Mta.Io.Persistence.File)
+    Application.get_env(:mta, :persistence_client, MTA.IO.Persistence.File)
   end
 end

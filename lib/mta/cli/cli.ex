@@ -1,9 +1,9 @@
-defmodule Mta.CLI do
+defmodule MTA.CLI do
   @moduledoc """
   Parse and format MTA GTFS and GTFS Realtime data
   """
 
-  alias Mta.CLI.Io
+  alias MTA.CLI.IO
 
   @type state ::
           :start
@@ -17,17 +17,17 @@ defmodule Mta.CLI do
   defp loop_rec(state) do
     case state do
       :start ->
-        start(Mta.Constants.Text.prompt_start())
+        start(MTA.Constants.Text.prompt_start())
 
         loop_rec(:menu)
 
       :menu ->
-        Io.break()
-        Io.display("1) Get message")
-        Io.display("2) Get latest and save")
-        Io.display("x) Exit")
+        IO.break()
+        IO.display("1) Get message")
+        IO.display("2) Get latest and save")
+        IO.display("x) Exit")
 
-        input = Io.prompt(nil)
+        input = IO.prompt(nil)
         handle_menu(input)
 
         loop_rec(:menu)
@@ -36,7 +36,7 @@ defmodule Mta.CLI do
 
   @spec start(String.t()) :: :ok
   defp start(msg) do
-    Io.display(msg)
+    IO.display(msg)
   end
 
   @spec handle_menu(String.t()) :: no_return()
@@ -52,7 +52,7 @@ defmodule Mta.CLI do
         exit(:shutdown)
 
       invalid ->
-        Io.display("Invalid input: #{ellipses(invalid, 30)}")
+        IO.display("Invalid input: #{ellipses(invalid, 30)}")
 
         loop_rec(:menu)
     end
@@ -60,35 +60,42 @@ defmodule Mta.CLI do
 
   @spec get_latest(boolean()) :: :ok
   def get_latest(write_files) do
-    Mta.Cache.init()
+    MTA.Cache.init()
 
     feed_message =
-      Mta.Cache.get_set_expired(
-        Mta.Constants.CacheKey.feed_message(),
-        Mta.Constants.Timeouts.feed_message(),
-        &Mta.Io.Api.get_feed_message/0
+      MTA.Cache.get_set_expired(
+        MTA.Constants.CacheKey.feed_message(),
+        MTA.Constants.Timeouts.feed_message(),
+        &MTA.IO.API.get_feed_message/0
       )
 
     if write_files do
-      Mta.Io.Persistence.write_feed_message_json(feed_message)
-
-      Mta.Io.Persistence.write_file(
-        inspect(feed_message, limit: :infinity, pretty: true),
-        "inspect__feed_message.ex"
-      )
-
-      stops =
-        Mta.Cache.get_set_expired(
-          Mta.Constants.CacheKey.stops(),
-          Mta.Constants.Timeouts.stops(),
-          &Mta.Io.Stops.read_stops/0
-        )
-
-      Mta.Io.Persistence.write_file(
-        inspect(stops, limit: :infinity, pretty: true),
-        "inspect__stops.ex"
-      )
+      write_files(feed_message)
     end
+
+    :ok
+  end
+
+  @spec write_files(%TransitRealtime.FeedMessage{}) :: :ok
+  defp write_files(feed_message) do
+    MTA.IO.Persistence.write_feed_message_json(feed_message)
+
+    MTA.IO.Persistence.write_file(
+      inspect(feed_message, limit: :infinity, pretty: true),
+      "inspect__feed_message.ex"
+    )
+
+    stops =
+      MTA.Cache.get_set_expired(
+        MTA.Constants.CacheKey.stops(),
+        MTA.Constants.Timeouts.stops(),
+        &MTA.IO.Stops.read_stops/0
+      )
+
+    MTA.IO.Persistence.write_file(
+      inspect(stops, limit: :infinity, pretty: true),
+      "inspect__stops.ex"
+    )
 
     :ok
   end
@@ -97,8 +104,8 @@ defmodule Mta.CLI do
   def get_vehicles(feed_message) do
     feed_message.entity
     |> Enum.filter(
-      &(Mta.Parser.FeedMessage.is_feed_entity?(&1) and
-          Mta.Parser.FeedEntity.has_vehicle?(&1))
+      &(MTA.Parser.FeedMessage.is_feed_entity?(&1) and
+          MTA.Parser.FeedEntity.has_vehicle?(&1))
     )
   end
 

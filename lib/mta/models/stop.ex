@@ -1,4 +1,4 @@
-defmodule Mta.Models.Stop do
+defmodule MTA.Models.Stop do
   @moduledoc """
   Stop struct, schema and data defined by MTA GTFS
   """
