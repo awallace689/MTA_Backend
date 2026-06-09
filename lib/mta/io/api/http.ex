@@ -13,7 +13,11 @@ defmodule MTA.IO.API.HTTP do
 
     %MTA.Models.FeedMessage{
       header: feed_message.header,
-      entity: Enum.map(feed_message.entity, &struct(MTA.Models.FeedEntity, Map.from_struct(&1))),
+      entity:
+        Enum.map(
+          feed_message.entity,
+          &struct(MTA.Models.FeedEntity, Map.from_struct(&1))
+        ),
       __uf__: feed_message.__uf__
     }
   end
@@ -22,9 +26,17 @@ defmodule MTA.IO.API.HTTP do
     req_options = Application.fetch_env!(:mta, :feed_message_req_options)
 
     resp =
-      case Req.get(Keyword.merge([url: MTA.Constants.URL.mta_realtime_gtfs()], req_options)) do
-        {:ok, resp} -> resp
-        {:error, reason} -> raise FeedMessageError, message: "Request failed: #{inspect(reason)}"
+      case Req.get(
+             Keyword.merge(
+               [url: MTA.Constants.URL.mta_realtime_gtfs()],
+               req_options
+             )
+           ) do
+        {:ok, resp} ->
+          resp
+
+        {:error, reason} ->
+          raise FeedMessageError, message: "Request failed: #{inspect(reason)}"
       end
 
     if resp.status != 200 do

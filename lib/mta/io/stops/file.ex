@@ -7,7 +7,14 @@ defmodule MTA.IO.Stops.File do
   def read_stops do
     File.stream!("lib/defs/gtfs_subway/stops.txt")
     |> CSV.parse_stream()
-    |> Stream.map(fn [stop_id, stop_name, stop_lat, stop_lon, location_type, parent_station] ->
+    |> Stream.map(fn [
+                       stop_id,
+                       stop_name,
+                       stop_lat,
+                       stop_lon,
+                       location_type,
+                       parent_station
+                     ] ->
       %MTA.Models.Stop{
         stop_id: stop_id,
         stop_name: stop_name,

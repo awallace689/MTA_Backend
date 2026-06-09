@@ -12,5 +12,12 @@ defmodule MTA.Models.Stop do
           parent_station: String.t()
         }
 
-  defstruct [:stop_id, :stop_name, :stop_lat, :stop_lon, :location_type, :parent_station]
+  defstruct [
+    :stop_id,
+    :stop_name,
+    :stop_lat,
+    :stop_lon,
+    :location_type,
+    :parent_station
+  ]
 end

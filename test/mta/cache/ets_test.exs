@@ -146,7 +146,9 @@ defmodule MTA.Cache.ETS.Test do
   end
 
   defp create_table do
-    opts = if @is_named_table, do: [@table_type, :named_table], else: [@table_type]
+    opts =
+      if @is_named_table, do: [@table_type, :named_table], else: [@table_type]
+
     :ets.new(@table_key, opts)
   end
 end

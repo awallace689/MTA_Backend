@@ -1523,7 +1523,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -1567,7 +1568,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:active_period, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :active_period,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -1587,7 +1591,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:informed_entity, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :informed_entity,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -1601,12 +1608,15 @@
                 [
                   acc,
                   "0",
-                  msg.cause |> TransitRealtime.Alert.Cause.encode() |> Protox.Encode.encode_enum()
+                  msg.cause
+                  |> TransitRealtime.Alert.Cause.encode()
+                  |> Protox.Encode.encode_enum()
                 ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:cause, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:cause, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_effect(acc, msg) do
@@ -1626,7 +1636,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:effect, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:effect, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_url(acc, msg) do
@@ -1637,7 +1648,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:url, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:url, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_header_text(acc, msg) do
@@ -1648,19 +1660,28 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:header_text, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :header_text,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_description_text(acc, msg) do
           try do
             case msg.description_text do
-              nil -> acc
-              _ -> [acc, "Z", Protox.Encode.encode_message(msg.description_text)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "Z", Protox.Encode.encode_message(msg.description_text)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:description_text, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :description_text,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -1672,19 +1693,32 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:tts_header_text, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :tts_header_text,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_tts_description_text(acc, msg) do
           try do
             case msg.tts_description_text do
-              nil -> acc
-              _ -> [acc, "j", Protox.Encode.encode_message(msg.tts_description_text)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "j",
+                  Protox.Encode.encode_message(msg.tts_description_text)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:tts_description_text, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :tts_description_text,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -1705,7 +1739,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:severity_level, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :severity_level,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -1717,49 +1754,82 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:image, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:image, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_image_alternative_text(acc, msg) do
           try do
             case msg.image_alternative_text do
-              nil -> acc
-              _ -> [acc, "\x82\x01", Protox.Encode.encode_message(msg.image_alternative_text)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\x82\x01",
+                  Protox.Encode.encode_message(msg.image_alternative_text)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:image_alternative_text, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :image_alternative_text,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_cause_detail(acc, msg) do
           try do
             case msg.cause_detail do
-              nil -> acc
-              _ -> [acc, "\x8A\x01", Protox.Encode.encode_message(msg.cause_detail)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\x8A\x01",
+                  Protox.Encode.encode_message(msg.cause_detail)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:cause_detail, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :cause_detail,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_effect_detail(acc, msg) do
           try do
             case msg.effect_detail do
-              nil -> acc
-              _ -> [acc, "\x92\x01", Protox.Encode.encode_message(msg.effect_detail)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\x92\x01",
+                  Protox.Encode.encode_message(msg.effect_detail)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:effect_detail, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :effect_detail,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -1769,7 +1839,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -1785,7 +1861,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -1815,7 +1895,9 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   active_period: msg.active_period ++ [TransitRealtime.TimeRange.decode!(delimited)]
+                   active_period:
+                     msg.active_period ++
+                       [TransitRealtime.TimeRange.decode!(delimited)]
                  ], rest}
 
               {5, _, bytes} ->
@@ -1823,15 +1905,21 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   informed_entity: msg.informed_entity ++ [TransitRealtime.EntitySelector.decode!(delimited)]
+                   informed_entity:
+                     msg.informed_entity ++
+                       [TransitRealtime.EntitySelector.decode!(delimited)]
                  ], rest}
 
               {6, _, bytes} ->
-                {value, rest} = Protox.Decode.parse_enum(bytes, TransitRealtime.Alert.Cause)
+                {value, rest} =
+                  Protox.Decode.parse_enum(bytes, TransitRealtime.Alert.Cause)
+
                 {[cause: value], rest}
 
               {7, _, bytes} ->
-                {value, rest} = Protox.Decode.parse_enum(bytes, TransitRealtime.Alert.Effect)
+                {value, rest} =
+                  Protox.Decode.parse_enum(bytes, TransitRealtime.Alert.Effect)
+
                 {[effect: value], rest}
 
               {8, _, bytes} ->
@@ -1896,7 +1984,10 @@
 
               {14, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.Alert.SeverityLevel)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.Alert.SeverityLevel
+                  )
 
                 {[severity_level: value], rest}
 
@@ -1949,10 +2040,12 @@
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -1965,7 +2058,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -1976,7 +2070,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -1985,7 +2080,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -1996,54 +2092,101 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:active_period, :unpacked, {:message, TransitRealtime.TimeRange}},
-          5 => {:informed_entity, :unpacked, {:message, TransitRealtime.EntitySelector}},
-          6 => {:cause, {:scalar, :UNKNOWN_CAUSE}, {:enum, TransitRealtime.Alert.Cause}},
-          7 => {:effect, {:scalar, :UNKNOWN_EFFECT}, {:enum, TransitRealtime.Alert.Effect}},
-          8 => {:url, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          10 => {:header_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          11 => {:description_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          12 => {:tts_header_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          13 => {:tts_description_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          14 => {:severity_level, {:scalar, :UNKNOWN_SEVERITY}, {:enum, TransitRealtime.Alert.SeverityLevel}},
-          15 => {:image, {:scalar, nil}, {:message, TransitRealtime.TranslatedImage}},
-          16 => {:image_alternative_text, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          17 => {:cause_detail, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          18 => {:effect_detail, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}}
+          1 =>
+            {:active_period, :unpacked, {:message, TransitRealtime.TimeRange}},
+          5 =>
+            {:informed_entity, :unpacked,
+             {:message, TransitRealtime.EntitySelector}},
+          6 =>
+            {:cause, {:scalar, :UNKNOWN_CAUSE},
+             {:enum, TransitRealtime.Alert.Cause}},
+          7 =>
+            {:effect, {:scalar, :UNKNOWN_EFFECT},
+             {:enum, TransitRealtime.Alert.Effect}},
+          8 =>
+            {:url, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          10 =>
+            {:header_text, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          11 =>
+            {:description_text, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          12 =>
+            {:tts_header_text, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          13 =>
+            {:tts_description_text, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          14 =>
+            {:severity_level, {:scalar, :UNKNOWN_SEVERITY},
+             {:enum, TransitRealtime.Alert.SeverityLevel}},
+          15 =>
+            {:image, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedImage}},
+          16 =>
+            {:image_alternative_text, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          17 =>
+            {:cause_detail, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          18 =>
+            {:effect_detail, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
           active_period: {1, :unpacked, {:message, TransitRealtime.TimeRange}},
-          cause: {6, {:scalar, :UNKNOWN_CAUSE}, {:enum, TransitRealtime.Alert.Cause}},
-          cause_detail: {17, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          description_text: {11, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          effect: {7, {:scalar, :UNKNOWN_EFFECT}, {:enum, TransitRealtime.Alert.Effect}},
-          effect_detail: {18, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          header_text: {10, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          image: {15, {:scalar, nil}, {:message, TransitRealtime.TranslatedImage}},
-          image_alternative_text: {16, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          informed_entity: {5, :unpacked, {:message, TransitRealtime.EntitySelector}},
-          severity_level: {14, {:scalar, :UNKNOWN_SEVERITY}, {:enum, TransitRealtime.Alert.SeverityLevel}},
-          tts_description_text: {13, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          tts_header_text: {12, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          cause:
+            {6, {:scalar, :UNKNOWN_CAUSE}, {:enum, TransitRealtime.Alert.Cause}},
+          cause_detail:
+            {17, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          description_text:
+            {11, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          effect:
+            {7, {:scalar, :UNKNOWN_EFFECT},
+             {:enum, TransitRealtime.Alert.Effect}},
+          effect_detail:
+            {18, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          header_text:
+            {10, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          image:
+            {15, {:scalar, nil}, {:message, TransitRealtime.TranslatedImage}},
+          image_alternative_text:
+            {16, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          informed_entity:
+            {5, :unpacked, {:message, TransitRealtime.EntitySelector}},
+          severity_level:
+            {14, {:scalar, :UNKNOWN_SEVERITY},
+             {:enum, TransitRealtime.Alert.SeverityLevel}},
+          tts_description_text:
+            {13, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          tts_header_text:
+            {12, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           url: {8, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}}
         }
       end
@@ -2183,7 +2326,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:active_period) do
             {:ok,
@@ -2707,7 +2852,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -2738,7 +2885,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:active_period) do
         {:error, :no_default_value}
       end,
@@ -2847,7 +2997,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -2875,7 +3026,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:agency_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :agency_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_route_id(acc, msg) do
@@ -2886,7 +3041,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:route_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :route_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_route_type(acc, msg) do
@@ -2897,7 +3056,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:route_type, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :route_type,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_trip(acc, msg) do
@@ -2908,7 +3071,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:trip, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_id(acc, msg) do
@@ -2919,7 +3083,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_direction_id(acc, msg) do
@@ -2930,14 +3095,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:direction_id, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :direction_id,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -2947,7 +3117,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -2963,7 +3139,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -3024,10 +3204,12 @@
                 {[direction_id: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -3040,7 +3222,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -3051,7 +3234,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -3060,7 +3244,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -3071,22 +3256,29 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
           1 => {:agency_id, {:scalar, ""}, :string},
           2 => {:route_id, {:scalar, ""}, :string},
           3 => {:route_type, {:scalar, 0}, :int32},
-          4 => {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
+          4 =>
+            {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
           5 => {:stop_id, {:scalar, ""}, :string},
           6 => {:direction_id, {:scalar, 0}, :uint32}
         }
@@ -3094,7 +3286,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -3170,7 +3363,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:agency_id) do
             {:ok,
@@ -3407,7 +3602,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -3438,7 +3635,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:agency_id) do
         {:ok, ""}
       end,
@@ -3525,7 +3725,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -3555,7 +3756,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_is_deleted(acc, msg) do
@@ -3566,7 +3768,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:is_deleted, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :is_deleted,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_trip_update(acc, msg) do
@@ -3577,7 +3783,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip_update, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :trip_update,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -3589,7 +3798,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:vehicle, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:vehicle, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_alert(acc, msg) do
@@ -3600,7 +3810,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:alert, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:alert, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_shape(acc, msg) do
@@ -3611,7 +3822,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:shape, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:shape, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop(acc, msg) do
@@ -3622,25 +3834,34 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_trip_modifications(acc, msg) do
           try do
             case msg.trip_modifications do
-              nil -> acc
-              _ -> [acc, "B", Protox.Encode.encode_message(msg.trip_modifications)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "B", Protox.Encode.encode_message(msg.trip_modifications)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip_modifications, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :trip_modifications,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -3650,7 +3871,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -3666,7 +3893,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -3674,11 +3905,15 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            {msg, set_fields} = parse_key_value([], bytes, struct(TransitRealtime.FeedEntity))
+            {msg, set_fields} =
+              parse_key_value([], bytes, struct(TransitRealtime.FeedEntity))
 
             case [:id] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -3699,7 +3934,9 @@
               {1, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[:id | set_fields], [id: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[:id | set_fields],
+                 [id: Protox.Decode.validate_string!(delimited)], rest}
 
               {2, _, bytes} ->
                 {value, rest} = Protox.Decode.parse_bool(bytes)
@@ -3763,7 +4000,11 @@
 
                 {[:stop | set_fields],
                  [
-                   stop: Protox.MergeMessage.merge(msg.stop, TransitRealtime.Stop.decode!(delimited))
+                   stop:
+                     Protox.MergeMessage.merge(
+                       msg.stop,
+                       TransitRealtime.Stop.decode!(delimited)
+                     )
                  ], rest}
 
               {8, _, bytes} ->
@@ -3780,11 +4021,13 @@
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -3797,7 +4040,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -3808,7 +4052,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -3817,7 +4062,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -3828,32 +4074,45 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
           1 => {:id, {:scalar, ""}, :string},
           2 => {:is_deleted, {:scalar, false}, :bool},
-          3 => {:trip_update, {:scalar, nil}, {:message, TransitRealtime.TripUpdate}},
-          4 => {:vehicle, {:scalar, nil}, {:message, TransitRealtime.VehiclePosition}},
+          3 =>
+            {:trip_update, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate}},
+          4 =>
+            {:vehicle, {:scalar, nil},
+             {:message, TransitRealtime.VehiclePosition}},
           5 => {:alert, {:scalar, nil}, {:message, TransitRealtime.Alert}},
           6 => {:shape, {:scalar, nil}, {:message, TransitRealtime.Shape}},
           7 => {:stop, {:scalar, nil}, {:message, TransitRealtime.Stop}},
-          8 => {:trip_modifications, {:scalar, nil}, {:message, TransitRealtime.TripModifications}}
+          8 =>
+            {:trip_modifications, {:scalar, nil},
+             {:message, TransitRealtime.TripModifications}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -3862,9 +4121,12 @@
           is_deleted: {2, {:scalar, false}, :bool},
           shape: {6, {:scalar, nil}, {:message, TransitRealtime.Shape}},
           stop: {7, {:scalar, nil}, {:message, TransitRealtime.Stop}},
-          trip_modifications: {8, {:scalar, nil}, {:message, TransitRealtime.TripModifications}},
-          trip_update: {3, {:scalar, nil}, {:message, TransitRealtime.TripUpdate}},
-          vehicle: {4, {:scalar, nil}, {:message, TransitRealtime.VehiclePosition}}
+          trip_modifications:
+            {8, {:scalar, nil}, {:message, TransitRealtime.TripModifications}},
+          trip_update:
+            {3, {:scalar, nil}, {:message, TransitRealtime.TripUpdate}},
+          vehicle:
+            {4, {:scalar, nil}, {:message, TransitRealtime.VehiclePosition}}
         }
       end
     )
@@ -3949,7 +4211,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:id) do
             {:ok,
@@ -4222,7 +4486,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -4253,7 +4519,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:id) do
         {:ok, ""}
       end,
@@ -4342,7 +4611,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -4363,12 +4633,22 @@
         defp encode_gtfs_realtime_version(acc, msg) do
           try do
             case msg.gtfs_realtime_version do
-              nil -> raise Protox.RequiredFieldsError.new([:gtfs_realtime_version])
-              _ -> [acc, "\n", Protox.Encode.encode_string(msg.gtfs_realtime_version)]
+              nil ->
+                raise Protox.RequiredFieldsError.new([:gtfs_realtime_version])
+
+              _ ->
+                [
+                  acc,
+                  "\n",
+                  Protox.Encode.encode_string(msg.gtfs_realtime_version)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:gtfs_realtime_version, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :gtfs_realtime_version,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -4389,7 +4669,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:incrementality, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :incrementality,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -4401,7 +4684,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:timestamp, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :timestamp,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_feed_version(acc, msg) do
@@ -4412,14 +4699,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:feed_version, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :feed_version,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -4429,7 +4721,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -4445,7 +4743,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -4453,11 +4755,15 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            {msg, set_fields} = parse_key_value([], bytes, struct(TransitRealtime.FeedHeader))
+            {msg, set_fields} =
+              parse_key_value([], bytes, struct(TransitRealtime.FeedHeader))
 
             case [:gtfs_realtime_version] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -4480,11 +4786,17 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[:gtfs_realtime_version | set_fields],
-                 [gtfs_realtime_version: Protox.Decode.validate_string!(delimited)], rest}
+                 [
+                   gtfs_realtime_version:
+                     Protox.Decode.validate_string!(delimited)
+                 ], rest}
 
               {2, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.FeedHeader.Incrementality)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.FeedHeader.Incrementality
+                  )
 
                 {[:incrementality | set_fields], [incrementality: value], rest}
 
@@ -4496,14 +4808,18 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:feed_version | set_fields], [feed_version: Protox.Decode.validate_string!(delimited)], rest}
+                {[:feed_version | set_fields],
+                 [feed_version: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -4516,7 +4832,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -4527,7 +4844,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -4536,7 +4854,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -4547,20 +4866,28 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
           1 => {:gtfs_realtime_version, {:scalar, ""}, :string},
-          2 => {:incrementality, {:scalar, :FULL_DATASET}, {:enum, TransitRealtime.FeedHeader.Incrementality}},
+          2 =>
+            {:incrementality, {:scalar, :FULL_DATASET},
+             {:enum, TransitRealtime.FeedHeader.Incrementality}},
           3 => {:timestamp, {:scalar, 0}, :uint64},
           4 => {:feed_version, {:scalar, ""}, :string}
         }
@@ -4568,13 +4895,16 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
           feed_version: {4, {:scalar, ""}, :string},
           gtfs_realtime_version: {1, {:scalar, ""}, :string},
-          incrementality: {2, {:scalar, :FULL_DATASET}, {:enum, TransitRealtime.FeedHeader.Incrementality}},
+          incrementality:
+            {2, {:scalar, :FULL_DATASET},
+             {:enum, TransitRealtime.FeedHeader.Incrementality}},
           timestamp: {3, {:scalar, 0}, :uint64}
         }
       end
@@ -4624,7 +4954,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:gtfs_realtime_version) do
             {:ok,
@@ -4770,7 +5102,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -4801,7 +5135,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:gtfs_realtime_version) do
         {:ok, ""}
       end,
@@ -4874,13 +5211,17 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
         @spec encode!(struct) :: iodata | no_return
         def encode!(msg) do
-          [] |> encode_header(msg) |> encode_entity(msg) |> encode_unknown_fields(msg)
+          []
+          |> encode_header(msg)
+          |> encode_entity(msg)
+          |> encode_unknown_fields(msg)
         end
       )
 
@@ -4895,7 +5236,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:header, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:header, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_entity(acc, msg) do
@@ -4914,13 +5256,16 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:entity, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:entity, "invalid field value"),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -4930,7 +5275,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -4946,7 +5297,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -4954,11 +5309,15 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            {msg, set_fields} = parse_key_value([], bytes, struct(TransitRealtime.FeedMessage))
+            {msg, set_fields} =
+              parse_key_value([], bytes, struct(TransitRealtime.FeedMessage))
 
             case [:header] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -4993,14 +5352,21 @@
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:entity | set_fields], [entity: msg.entity ++ [TransitRealtime.FeedEntity.decode!(delimited)]], rest}
+                {[:entity | set_fields],
+                 [
+                   entity:
+                     msg.entity ++
+                       [TransitRealtime.FeedEntity.decode!(delimited)]
+                 ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -5013,7 +5379,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -5024,7 +5391,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -5033,7 +5401,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -5044,26 +5413,34 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:header, {:scalar, nil}, {:message, TransitRealtime.FeedHeader}},
+          1 =>
+            {:header, {:scalar, nil}, {:message, TransitRealtime.FeedHeader}},
           2 => {:entity, :unpacked, {:message, TransitRealtime.FeedEntity}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -5099,7 +5476,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:header) do
             {:ok,
@@ -5165,7 +5544,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -5196,7 +5577,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:header) do
         {:ok, nil}
       end,
@@ -5254,7 +5638,12 @@
   end,
   defmodule TransitRealtime.Position do
     @moduledoc false
-    defstruct latitude: nil, longitude: nil, bearing: nil, odometer: nil, speed: nil, __uf__: []
+    defstruct latitude: nil,
+              longitude: nil,
+              bearing: nil,
+              odometer: nil,
+              speed: nil,
+              __uf__: []
 
     (
       (
@@ -5263,7 +5652,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -5290,7 +5680,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:latitude, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :latitude,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_longitude(acc, msg) do
@@ -5301,7 +5695,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:longitude, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :longitude,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_bearing(acc, msg) do
@@ -5312,7 +5710,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:bearing, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:bearing, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_odometer(acc, msg) do
@@ -5323,7 +5722,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:odometer, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :odometer,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_speed(acc, msg) do
@@ -5334,13 +5737,16 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:speed, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:speed, "invalid field value"),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -5350,7 +5756,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -5366,7 +5778,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -5374,11 +5790,15 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            {msg, set_fields} = parse_key_value([], bytes, struct(TransitRealtime.Position))
+            {msg, set_fields} =
+              parse_key_value([], bytes, struct(TransitRealtime.Position))
 
             case [:latitude, :longitude] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -5417,11 +5837,13 @@
                 {[:speed | set_fields], [speed: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -5434,7 +5856,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -5445,7 +5868,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -5454,7 +5878,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -5465,15 +5890,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -5487,7 +5918,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -5553,7 +5985,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:latitude) do
             {:ok,
@@ -5706,7 +6140,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -5737,7 +6173,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:latitude) do
         {:ok, 0.0}
       end,
@@ -5813,7 +6252,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -5832,12 +6272,18 @@
         defp encode_travel_time_to_stop(acc, msg) do
           try do
             case msg.travel_time_to_stop do
-              nil -> acc
-              _ -> [acc, "\b", Protox.Encode.encode_int32(msg.travel_time_to_stop)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "\b", Protox.Encode.encode_int32(msg.travel_time_to_stop)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:travel_time_to_stop, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :travel_time_to_stop,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -5849,13 +6295,16 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -5865,7 +6314,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -5881,7 +6336,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -5916,10 +6375,12 @@
                 {[stop_id: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -5932,7 +6393,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -5943,7 +6405,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -5952,7 +6415,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -5963,15 +6427,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -5982,10 +6452,14 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
-        %{stop_id: {2, {:scalar, ""}, :string}, travel_time_to_stop: {1, {:scalar, 0}, :int32}}
+        %{
+          stop_id: {2, {:scalar, ""}, :string},
+          travel_time_to_stop: {1, {:scalar, 0}, :int32}
+        }
       end
     )
 
@@ -6015,7 +6489,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:travel_time_to_stop) do
             {:ok,
@@ -6103,7 +6579,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -6134,7 +6612,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:travel_time_to_stop) do
         {:ok, 0}
       end,
@@ -6201,13 +6682,17 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
         @spec encode!(struct) :: iodata | no_return
         def encode!(msg) do
-          [] |> encode_shape_id(msg) |> encode_encoded_polyline(msg) |> encode_unknown_fields(msg)
+          []
+          |> encode_shape_id(msg)
+          |> encode_encoded_polyline(msg)
+          |> encode_unknown_fields(msg)
         end
       )
 
@@ -6222,25 +6707,37 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:shape_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :shape_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_encoded_polyline(acc, msg) do
           try do
             case msg.encoded_polyline do
-              nil -> acc
-              _ -> [acc, "\x12", Protox.Encode.encode_string(msg.encoded_polyline)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "\x12", Protox.Encode.encode_string(msg.encoded_polyline)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:encoded_polyline, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :encoded_polyline,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -6250,7 +6747,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -6266,7 +6769,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -6299,13 +6806,17 @@
               {2, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[encoded_polyline: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[encoded_polyline: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -6318,7 +6829,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -6329,7 +6841,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -6338,7 +6851,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -6349,15 +6863,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -6368,10 +6888,14 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
-        %{encoded_polyline: {2, {:scalar, ""}, :string}, shape_id: {1, {:scalar, ""}, :string}}
+        %{
+          encoded_polyline: {2, {:scalar, ""}, :string},
+          shape_id: {1, {:scalar, ""}, :string}
+        }
       end
     )
 
@@ -6401,7 +6925,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:shape_id) do
             {:ok,
@@ -6489,7 +7015,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -6520,7 +7048,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:shape_id) do
         {:ok, ""}
       end,
@@ -6601,7 +7132,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -6637,7 +7169,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_code(acc, msg) do
@@ -6648,7 +7181,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_code, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :stop_code,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_name(acc, msg) do
@@ -6659,7 +7196,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_name, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :stop_name,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_tts_stop_name(acc, msg) do
@@ -6670,7 +7211,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:tts_stop_name, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :tts_stop_name,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -6682,7 +7226,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_desc, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :stop_desc,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_lat(acc, msg) do
@@ -6693,7 +7241,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_lat, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :stop_lat,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_lon(acc, msg) do
@@ -6704,7 +7256,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_lon, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :stop_lon,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_zone_id(acc, msg) do
@@ -6715,7 +7271,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:zone_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:zone_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_url(acc, msg) do
@@ -6726,7 +7283,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_url, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :stop_url,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_parent_station(acc, msg) do
@@ -6737,7 +7298,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:parent_station, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :parent_station,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -6749,7 +7313,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_timezone, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :stop_timezone,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -6770,7 +7337,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:wheelchair_boarding, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :wheelchair_boarding,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -6782,7 +7352,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:level_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :level_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_platform_code(acc, msg) do
@@ -6793,14 +7367,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:platform_code, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :platform_code,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -6810,7 +7389,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -6826,7 +7411,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -6932,16 +7521,23 @@
               {11, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[parent_station: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[parent_station: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {12, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[stop_timezone: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[stop_timezone: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {13, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.Stop.WheelchairBoarding)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.Stop.WheelchairBoarding
+                  )
 
                 {[wheelchair_boarding: value], rest}
 
@@ -6963,10 +7559,12 @@
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -6979,7 +7577,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -6990,7 +7589,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -6999,7 +7599,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -7010,54 +7611,83 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
           1 => {:stop_id, {:scalar, ""}, :string},
-          2 => {:stop_code, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          3 => {:stop_name, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          4 => {:tts_stop_name, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          5 => {:stop_desc, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          2 =>
+            {:stop_code, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          3 =>
+            {:stop_name, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          4 =>
+            {:tts_stop_name, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
+          5 =>
+            {:stop_desc, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
           6 => {:stop_lat, {:scalar, 0.0}, :float},
           7 => {:stop_lon, {:scalar, 0.0}, :float},
           8 => {:zone_id, {:scalar, ""}, :string},
-          9 => {:stop_url, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          9 =>
+            {:stop_url, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}},
           11 => {:parent_station, {:scalar, ""}, :string},
           12 => {:stop_timezone, {:scalar, ""}, :string},
-          13 => {:wheelchair_boarding, {:scalar, :UNKNOWN}, {:enum, TransitRealtime.Stop.WheelchairBoarding}},
+          13 =>
+            {:wheelchair_boarding, {:scalar, :UNKNOWN},
+             {:enum, TransitRealtime.Stop.WheelchairBoarding}},
           14 => {:level_id, {:scalar, ""}, :string},
-          15 => {:platform_code, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}}
+          15 =>
+            {:platform_code, {:scalar, nil},
+             {:message, TransitRealtime.TranslatedString}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
           level_id: {14, {:scalar, ""}, :string},
           parent_station: {11, {:scalar, ""}, :string},
-          platform_code: {15, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          stop_code: {2, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          stop_desc: {5, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          platform_code:
+            {15, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          stop_code:
+            {2, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          stop_desc:
+            {5, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           stop_id: {1, {:scalar, ""}, :string},
           stop_lat: {6, {:scalar, 0.0}, :float},
           stop_lon: {7, {:scalar, 0.0}, :float},
-          stop_name: {3, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          stop_name:
+            {3, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
           stop_timezone: {12, {:scalar, ""}, :string},
-          stop_url: {9, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          tts_stop_name: {4, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
-          wheelchair_boarding: {13, {:scalar, :UNKNOWN}, {:enum, TransitRealtime.Stop.WheelchairBoarding}},
+          stop_url:
+            {9, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          tts_stop_name:
+            {4, {:scalar, nil}, {:message, TransitRealtime.TranslatedString}},
+          wheelchair_boarding:
+            {13, {:scalar, :UNKNOWN},
+             {:enum, TransitRealtime.Stop.WheelchairBoarding}},
           zone_id: {8, {:scalar, ""}, :string}
         }
       end
@@ -7197,7 +7827,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:stop_id) do
             {:ok,
@@ -7765,7 +8397,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -7796,7 +8430,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:stop_id) do
         {:ok, ""}
       end,
@@ -7899,13 +8536,17 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
         @spec encode!(struct) :: iodata | no_return
         def encode!(msg) do
-          [] |> encode_stop_sequence(msg) |> encode_stop_id(msg) |> encode_unknown_fields(msg)
+          []
+          |> encode_stop_sequence(msg)
+          |> encode_stop_id(msg)
+          |> encode_unknown_fields(msg)
         end
       )
 
@@ -7920,7 +8561,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_sequence, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :stop_sequence,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -7932,13 +8576,16 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -7948,7 +8595,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -7964,7 +8617,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -7999,10 +8656,12 @@
                 {[stop_id: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -8015,7 +8674,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -8026,7 +8686,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -8035,7 +8696,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -8046,26 +8708,39 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
-        %{1 => {:stop_sequence, {:scalar, 0}, :uint32}, 2 => {:stop_id, {:scalar, ""}, :string}}
+        %{
+          1 => {:stop_sequence, {:scalar, 0}, :uint32},
+          2 => {:stop_id, {:scalar, ""}, :string}
+        }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
-        %{stop_id: {2, {:scalar, ""}, :string}, stop_sequence: {1, {:scalar, 0}, :uint32}}
+        %{
+          stop_id: {2, {:scalar, ""}, :string},
+          stop_sequence: {1, {:scalar, 0}, :uint32}
+        }
       end
     )
 
@@ -8095,7 +8770,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:stop_sequence) do
             {:ok,
@@ -8183,7 +8860,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -8214,7 +8893,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:stop_sequence) do
         {:ok, 0}
       end,
@@ -8281,13 +8963,17 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
         @spec encode!(struct) :: iodata | no_return
         def encode!(msg) do
-          [] |> encode_start(msg) |> encode_end(msg) |> encode_unknown_fields(msg)
+          []
+          |> encode_start(msg)
+          |> encode_end(msg)
+          |> encode_unknown_fields(msg)
         end
       )
 
@@ -8302,7 +8988,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:start, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_end(acc, msg) do
@@ -8313,13 +9000,16 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:end, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:end, "invalid field value"),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -8329,7 +9019,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -8345,7 +9041,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -8379,10 +9079,12 @@
                 {[end: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -8395,7 +9097,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -8406,7 +9109,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -8415,7 +9119,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -8426,23 +9131,33 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
-        %{1 => {:start, {:scalar, 0}, :uint64}, 2 => {:end, {:scalar, 0}, :uint64}}
+        %{
+          1 => {:start, {:scalar, 0}, :uint64},
+          2 => {:end, {:scalar, 0}, :uint64}
+        }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{end: {2, {:scalar, 0}, :uint64}, start: {1, {:scalar, 0}, :uint64}}
@@ -8475,7 +9190,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:start) do
             {:ok,
@@ -8541,7 +9258,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -8572,7 +9291,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:start) do
         {:ok, 0}
       end,
@@ -8639,7 +9361,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -8668,14 +9391,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:localized_image, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :localized_image,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -8685,7 +9413,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -8701,7 +9435,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -8733,14 +9471,20 @@
                 {[
                    localized_image:
                      msg.localized_image ++
-                       [TransitRealtime.TranslatedImage.LocalizedImage.decode!(delimited)]
+                       [
+                         TransitRealtime.TranslatedImage.LocalizedImage.decode!(
+                           delimited
+                         )
+                       ]
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -8753,7 +9497,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -8764,7 +9509,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -8773,7 +9519,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -8784,29 +9531,40 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:localized_image, :unpacked, {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
+          1 =>
+            {:localized_image, :unpacked,
+             {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
-          localized_image: {1, :unpacked, {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
+          localized_image:
+            {1, :unpacked,
+             {:message, TransitRealtime.TranslatedImage.LocalizedImage}}
         }
       end
     )
@@ -8828,7 +9586,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:localized_image) do
             {:ok,
@@ -8876,7 +9636,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -8907,7 +9669,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:localized_image) do
         {:error, :no_default_value}
       end,
@@ -8971,7 +9736,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -8996,7 +9762,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:url, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:url, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_media_type(acc, msg) do
@@ -9007,7 +9774,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:media_type, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :media_type,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_language(acc, msg) do
@@ -9018,13 +9789,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:language, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :language,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -9034,7 +9811,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -9050,7 +9833,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -9059,11 +9846,18 @@
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
             {msg, set_fields} =
-              parse_key_value([], bytes, struct(TransitRealtime.TranslatedImage.LocalizedImage))
+              parse_key_value(
+                [],
+                bytes,
+                struct(TransitRealtime.TranslatedImage.LocalizedImage)
+              )
 
             case [:url, :media_type] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -9084,26 +9878,32 @@
               {1, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[:url | set_fields], [url: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[:url | set_fields],
+                 [url: Protox.Decode.validate_string!(delimited)], rest}
 
               {2, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:media_type | set_fields], [media_type: Protox.Decode.validate_string!(delimited)], rest}
+                {[:media_type | set_fields],
+                 [media_type: Protox.Decode.validate_string!(delimited)], rest}
 
               {3, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:language | set_fields], [language: Protox.Decode.validate_string!(delimited)], rest}
+                {[:language | set_fields],
+                 [language: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -9116,7 +9916,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -9127,7 +9928,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -9136,7 +9938,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -9147,15 +9950,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -9167,7 +9976,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -9213,7 +10023,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:url) do
             {:ok,
@@ -9319,7 +10131,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -9350,7 +10164,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:url) do
         {:ok, ""}
       end,
@@ -9420,7 +10237,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -9449,14 +10267,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:translation, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :translation,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -9466,7 +10289,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -9482,7 +10311,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -9514,14 +10347,20 @@
                 {[
                    translation:
                      msg.translation ++
-                       [TransitRealtime.TranslatedString.Translation.decode!(delimited)]
+                       [
+                         TransitRealtime.TranslatedString.Translation.decode!(
+                           delimited
+                         )
+                       ]
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -9534,7 +10373,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -9545,7 +10385,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -9554,7 +10395,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -9565,28 +10407,41 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:translation, :unpacked, {:message, TransitRealtime.TranslatedString.Translation}}
+          1 =>
+            {:translation, :unpacked,
+             {:message, TransitRealtime.TranslatedString.Translation}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
-        %{translation: {1, :unpacked, {:message, TransitRealtime.TranslatedString.Translation}}}
+        %{
+          translation:
+            {1, :unpacked,
+             {:message, TransitRealtime.TranslatedString.Translation}}
+        }
       end
     )
 
@@ -9607,7 +10462,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:translation) do
             {:ok,
@@ -9644,7 +10501,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -9675,7 +10534,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:translation) do
         {:error, :no_default_value}
       end,
@@ -9739,13 +10601,17 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
         @spec encode!(struct) :: iodata | no_return
         def encode!(msg) do
-          [] |> encode_text(msg) |> encode_language(msg) |> encode_unknown_fields(msg)
+          []
+          |> encode_text(msg)
+          |> encode_language(msg)
+          |> encode_unknown_fields(msg)
         end
       )
 
@@ -9760,7 +10626,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:text, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:text, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_language(acc, msg) do
@@ -9771,13 +10638,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:language, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :language,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -9787,7 +10660,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -9803,7 +10682,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -9812,11 +10695,18 @@
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
             {msg, set_fields} =
-              parse_key_value([], bytes, struct(TransitRealtime.TranslatedString.Translation))
+              parse_key_value(
+                [],
+                bytes,
+                struct(TransitRealtime.TranslatedString.Translation)
+              )
 
             case [:text] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -9837,20 +10727,25 @@
               {1, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[:text | set_fields], [text: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[:text | set_fields],
+                 [text: Protox.Decode.validate_string!(delimited)], rest}
 
               {2, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[:language | set_fields], [language: Protox.Decode.validate_string!(delimited)], rest}
+                {[:language | set_fields],
+                 [language: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -9863,7 +10758,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -9874,7 +10770,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -9883,7 +10780,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -9894,26 +10792,39 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
-        %{1 => {:text, {:scalar, ""}, :string}, 2 => {:language, {:scalar, ""}, :string}}
+        %{
+          1 => {:text, {:scalar, ""}, :string},
+          2 => {:language, {:scalar, ""}, :string}
+        }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
-        %{language: {2, {:scalar, ""}, :string}, text: {1, {:scalar, ""}, :string}}
+        %{
+          language: {2, {:scalar, ""}, :string},
+          text: {1, {:scalar, ""}, :string}
+        }
       end
     )
 
@@ -9943,7 +10854,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:text) do
             {:ok,
@@ -10009,7 +10922,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -10040,7 +10955,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:text) do
         {:ok, ""}
       end,
@@ -10114,7 +11032,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -10143,7 +11062,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:trip_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_start_time(acc, msg) do
@@ -10154,7 +11074,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_time, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :start_time,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_start_date(acc, msg) do
@@ -10165,7 +11089,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_date, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :start_date,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_schedule_relationship(acc, msg) do
@@ -10185,7 +11113,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:schedule_relationship, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :schedule_relationship,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -10197,7 +11128,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:route_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :route_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_direction_id(acc, msg) do
@@ -10208,7 +11143,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:direction_id, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :direction_id,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -10220,14 +11158,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:modified_trip, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :modified_trip,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -10237,7 +11180,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -10253,7 +11202,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -10319,15 +11272,19 @@
                    modified_trip:
                      Protox.MergeMessage.merge(
                        msg.modified_trip,
-                       TransitRealtime.TripDescriptor.ModifiedTripSelector.decode!(delimited)
+                       TransitRealtime.TripDescriptor.ModifiedTripSelector.decode!(
+                         delimited
+                       )
                      )
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -10340,7 +11297,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -10351,7 +11309,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -10360,7 +11319,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -10371,15 +11331,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -10391,21 +11357,27 @@
              {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}},
           5 => {:route_id, {:scalar, ""}, :string},
           6 => {:direction_id, {:scalar, 0}, :uint32},
-          7 => {:modified_trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}}
+          7 =>
+            {:modified_trip, {:scalar, nil},
+             {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
           direction_id: {6, {:scalar, 0}, :uint32},
-          modified_trip: {7, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}},
+          modified_trip:
+            {7, {:scalar, nil},
+             {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}},
           route_id: {5, {:scalar, ""}, :string},
           schedule_relationship:
-            {4, {:scalar, :SCHEDULED}, {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}},
+            {4, {:scalar, :SCHEDULED},
+             {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}},
           start_date: {3, {:scalar, ""}, :string},
           start_time: {2, {:scalar, ""}, :string},
           trip_id: {1, {:scalar, ""}, :string}
@@ -10478,13 +11450,16 @@
             label: :optional,
             name: :modified_trip,
             tag: 7,
-            type: {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
+            type:
+              {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
           }
         ]
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:trip_id) do
             {:ok,
@@ -10615,7 +11590,8 @@
                label: :optional,
                name: :schedule_relationship,
                tag: 4,
-               type: {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}
+               type:
+                 {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}
              }}
           end
 
@@ -10628,7 +11604,8 @@
                label: :optional,
                name: :schedule_relationship,
                tag: 4,
-               type: {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}
+               type:
+                 {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}
              }}
           end
 
@@ -10641,7 +11618,8 @@
                label: :optional,
                name: :schedule_relationship,
                tag: 4,
-               type: {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}
+               type:
+                 {:enum, TransitRealtime.TripDescriptor.ScheduleRelationship}
              }}
           end
         ),
@@ -10735,7 +11713,8 @@
                label: :optional,
                name: :modified_trip,
                tag: 7,
-               type: {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
+               type:
+                 {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
              }}
           end
 
@@ -10748,7 +11727,8 @@
                label: :optional,
                name: :modified_trip,
                tag: 7,
-               type: {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
+               type:
+                 {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
              }}
           end
 
@@ -10761,7 +11741,8 @@
                label: :optional,
                name: :modified_trip,
                tag: 7,
-               type: {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
+               type:
+                 {:message, TransitRealtime.TripDescriptor.ModifiedTripSelector}
              }}
           end
         ),
@@ -10772,7 +11753,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -10803,7 +11786,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:trip_id) do
         {:ok, ""}
       end,
@@ -10889,7 +11875,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -10910,24 +11897,36 @@
         defp encode_modifications_id(acc, msg) do
           try do
             case msg.modifications_id do
-              nil -> acc
-              _ -> [acc, "\n", Protox.Encode.encode_string(msg.modifications_id)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "\n", Protox.Encode.encode_string(msg.modifications_id)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:modifications_id, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :modifications_id,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_affected_trip_id(acc, msg) do
           try do
             case msg.affected_trip_id do
-              nil -> acc
-              _ -> [acc, "\x12", Protox.Encode.encode_string(msg.affected_trip_id)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "\x12", Protox.Encode.encode_string(msg.affected_trip_id)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:affected_trip_id, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :affected_trip_id,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -10939,7 +11938,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_time, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :start_time,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_start_date(acc, msg) do
@@ -10950,13 +11953,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_date, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :start_date,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -10966,7 +11975,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -10982,7 +11997,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -10990,7 +12009,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.TripDescriptor.ModifiedTripSelector))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.TripDescriptor.ModifiedTripSelector)
+            )
           end
         )
       )
@@ -11010,12 +12032,16 @@
               {1, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[modifications_id: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[modifications_id: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {2, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[affected_trip_id: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[affected_trip_id: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {3, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
@@ -11028,10 +12054,12 @@
                 {[start_date: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -11044,7 +12072,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -11055,7 +12084,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -11064,7 +12094,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -11075,15 +12106,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -11096,7 +12133,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -11152,7 +12190,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:modifications_id) do
             {:ok,
@@ -11320,7 +12360,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -11351,7 +12393,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:modifications_id) do
         {:ok, ""}
       end,
@@ -11428,7 +12473,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -11462,7 +12508,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:selected_trips, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :selected_trips,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -11482,7 +12531,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_times, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :start_times,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -11502,7 +12554,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:service_dates, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :service_dates,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -11522,14 +12577,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:modifications, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :modifications,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -11539,7 +12599,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -11555,7 +12621,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -11587,21 +12657,31 @@
                 {[
                    selected_trips:
                      msg.selected_trips ++
-                       [TransitRealtime.TripModifications.SelectedTrips.decode!(delimited)]
+                       [
+                         TransitRealtime.TripModifications.SelectedTrips.decode!(
+                           delimited
+                         )
+                       ]
                  ], rest}
 
               {2, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
-                {[start_times: msg.start_times ++ [Protox.Decode.validate_string!(delimited)]], rest}
+                {[
+                   start_times:
+                     msg.start_times ++
+                       [Protox.Decode.validate_string!(delimited)]
+                 ], rest}
 
               {3, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   service_dates: msg.service_dates ++ [Protox.Decode.validate_string!(delimited)]
+                   service_dates:
+                     msg.service_dates ++
+                       [Protox.Decode.validate_string!(delimited)]
                  ], rest}
 
               {4, _, bytes} ->
@@ -11611,14 +12691,20 @@
                 {[
                    modifications:
                      msg.modifications ++
-                       [TransitRealtime.TripModifications.Modification.decode!(delimited)]
+                       [
+                         TransitRealtime.TripModifications.Modification.decode!(
+                           delimited
+                         )
+                       ]
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -11631,7 +12717,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -11642,7 +12729,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -11651,7 +12739,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -11662,33 +12751,48 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:selected_trips, :unpacked, {:message, TransitRealtime.TripModifications.SelectedTrips}},
+          1 =>
+            {:selected_trips, :unpacked,
+             {:message, TransitRealtime.TripModifications.SelectedTrips}},
           2 => {:start_times, :unpacked, :string},
           3 => {:service_dates, :unpacked, :string},
-          4 => {:modifications, :unpacked, {:message, TransitRealtime.TripModifications.Modification}}
+          4 =>
+            {:modifications, :unpacked,
+             {:message, TransitRealtime.TripModifications.Modification}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
-          modifications: {4, :unpacked, {:message, TransitRealtime.TripModifications.Modification}},
-          selected_trips: {1, :unpacked, {:message, TransitRealtime.TripModifications.SelectedTrips}},
+          modifications:
+            {4, :unpacked,
+             {:message, TransitRealtime.TripModifications.Modification}},
+          selected_trips:
+            {1, :unpacked,
+             {:message, TransitRealtime.TripModifications.SelectedTrips}},
           service_dates: {3, :unpacked, :string},
           start_times: {2, :unpacked, :string}
         }
@@ -11739,7 +12843,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:selected_trips) do
             {:ok,
@@ -11896,7 +13002,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -11927,7 +13035,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:selected_trips) do
         {:error, :no_default_value}
       end,
@@ -12006,7 +13117,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -12029,32 +13141,59 @@
         defp encode_start_stop_selector(acc, msg) do
           try do
             case msg.start_stop_selector do
-              nil -> acc
-              _ -> [acc, "\n", Protox.Encode.encode_message(msg.start_stop_selector)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\n",
+                  Protox.Encode.encode_message(msg.start_stop_selector)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_stop_selector, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :start_stop_selector,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_end_stop_selector(acc, msg) do
           try do
             case msg.end_stop_selector do
-              nil -> acc
-              _ -> [acc, "\x12", Protox.Encode.encode_message(msg.end_stop_selector)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\x12",
+                  Protox.Encode.encode_message(msg.end_stop_selector)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:end_stop_selector, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :end_stop_selector,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_propagated_modification_delay(acc, msg) do
           try do
             case msg.propagated_modification_delay do
-              nil -> acc
-              _ -> [acc, "\x18", Protox.Encode.encode_int32(msg.propagated_modification_delay)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\x18",
+                  Protox.Encode.encode_int32(msg.propagated_modification_delay)
+                ]
             end
           rescue
             ArgumentError ->
@@ -12081,7 +13220,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:replacement_stops, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :replacement_stops,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -12093,26 +13235,37 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:service_alert_id, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :service_alert_id,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_last_modified_time(acc, msg) do
           try do
             case msg.last_modified_time do
-              nil -> acc
-              _ -> [acc, "0", Protox.Encode.encode_uint64(msg.last_modified_time)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "0", Protox.Encode.encode_uint64(msg.last_modified_time)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:last_modified_time, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :last_modified_time,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -12122,7 +13275,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -12138,7 +13297,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -12146,7 +13309,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.TripModifications.Modification))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.TripModifications.Modification)
+            )
           end
         )
       )
@@ -12196,23 +13362,29 @@
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
 
                 {[
-                   replacement_stops: msg.replacement_stops ++ [TransitRealtime.ReplacementStop.decode!(delimited)]
+                   replacement_stops:
+                     msg.replacement_stops ++
+                       [TransitRealtime.ReplacementStop.decode!(delimited)]
                  ], rest}
 
               {5, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[service_alert_id: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[service_alert_id: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {6, _, bytes} ->
                 {value, rest} = Protox.Decode.parse_uint64(bytes)
                 {[last_modified_time: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -12225,7 +13397,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -12236,7 +13409,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -12245,7 +13419,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -12256,22 +13431,34 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:start_stop_selector, {:scalar, nil}, {:message, TransitRealtime.StopSelector}},
-          2 => {:end_stop_selector, {:scalar, nil}, {:message, TransitRealtime.StopSelector}},
+          1 =>
+            {:start_stop_selector, {:scalar, nil},
+             {:message, TransitRealtime.StopSelector}},
+          2 =>
+            {:end_stop_selector, {:scalar, nil},
+             {:message, TransitRealtime.StopSelector}},
           3 => {:propagated_modification_delay, {:scalar, 0}, :int32},
-          4 => {:replacement_stops, :unpacked, {:message, TransitRealtime.ReplacementStop}},
+          4 =>
+            {:replacement_stops, :unpacked,
+             {:message, TransitRealtime.ReplacementStop}},
           5 => {:service_alert_id, {:scalar, ""}, :string},
           6 => {:last_modified_time, {:scalar, 0}, :uint64}
         }
@@ -12279,16 +13466,20 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
-          end_stop_selector: {2, {:scalar, nil}, {:message, TransitRealtime.StopSelector}},
+          end_stop_selector:
+            {2, {:scalar, nil}, {:message, TransitRealtime.StopSelector}},
           last_modified_time: {6, {:scalar, 0}, :uint64},
           propagated_modification_delay: {3, {:scalar, 0}, :int32},
-          replacement_stops: {4, :unpacked, {:message, TransitRealtime.ReplacementStop}},
+          replacement_stops:
+            {4, :unpacked, {:message, TransitRealtime.ReplacementStop}},
           service_alert_id: {5, {:scalar, ""}, :string},
-          start_stop_selector: {1, {:scalar, nil}, {:message, TransitRealtime.StopSelector}}
+          start_stop_selector:
+            {1, {:scalar, nil}, {:message, TransitRealtime.StopSelector}}
         }
       end
     )
@@ -12355,7 +13546,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:start_stop_selector) do
             {:ok,
@@ -12603,7 +13796,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -12634,7 +13829,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:start_stop_selector) do
         {:ok, nil}
       end,
@@ -12713,13 +13911,17 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
         @spec encode!(struct) :: iodata | no_return
         def encode!(msg) do
-          [] |> encode_trip_ids(msg) |> encode_shape_id(msg) |> encode_unknown_fields(msg)
+          []
+          |> encode_trip_ids(msg)
+          |> encode_shape_id(msg)
+          |> encode_unknown_fields(msg)
         end
       )
 
@@ -12742,7 +13944,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip_ids, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :trip_ids,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_shape_id(acc, msg) do
@@ -12753,13 +13959,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:shape_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :shape_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -12769,7 +13981,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -12785,7 +14003,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -12793,7 +14015,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.TripModifications.SelectedTrips))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.TripModifications.SelectedTrips)
+            )
           end
         )
       )
@@ -12813,7 +14038,11 @@
               {1, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[trip_ids: msg.trip_ids ++ [Protox.Decode.validate_string!(delimited)]], rest}
+
+                {[
+                   trip_ids:
+                     msg.trip_ids ++ [Protox.Decode.validate_string!(delimited)]
+                 ], rest}
 
               {2, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
@@ -12821,10 +14050,12 @@
                 {[shape_id: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -12837,7 +14068,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -12848,7 +14080,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -12857,7 +14090,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -12868,26 +14102,39 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
-        %{1 => {:trip_ids, :unpacked, :string}, 2 => {:shape_id, {:scalar, ""}, :string}}
+        %{
+          1 => {:trip_ids, :unpacked, :string},
+          2 => {:shape_id, {:scalar, ""}, :string}
+        }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
-        %{shape_id: {2, {:scalar, ""}, :string}, trip_ids: {1, :unpacked, :string}}
+        %{
+          shape_id: {2, {:scalar, ""}, :string},
+          trip_ids: {1, :unpacked, :string}
+        }
       end
     )
 
@@ -12917,7 +14164,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:trip_ids) do
             {:ok,
@@ -13005,7 +14254,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -13036,7 +14287,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:trip_ids) do
         {:error, :no_default_value}
       end,
@@ -13109,7 +14363,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -13137,7 +14392,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:trip, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_time_update(acc, msg) do
@@ -13156,7 +14412,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_time_update, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :stop_time_update,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -13168,7 +14427,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:vehicle, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:vehicle, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_timestamp(acc, msg) do
@@ -13179,7 +14439,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:timestamp, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :timestamp,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_delay(acc, msg) do
@@ -13190,7 +14454,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:delay, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:delay, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_trip_properties(acc, msg) do
@@ -13201,14 +14466,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip_properties, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :trip_properties,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -13218,7 +14488,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -13234,7 +14510,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -13242,11 +14522,15 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            {msg, set_fields} = parse_key_value([], bytes, struct(TransitRealtime.TripUpdate))
+            {msg, set_fields} =
+              parse_key_value([], bytes, struct(TransitRealtime.TripUpdate))
 
             case [:trip] -- set_fields do
-              [] -> msg
-              missing_fields -> raise Protox.RequiredFieldsError.new(missing_fields)
+              [] ->
+                msg
+
+              missing_fields ->
+                raise Protox.RequiredFieldsError.new(missing_fields)
             end
           end
         )
@@ -13285,7 +14569,11 @@
                  [
                    stop_time_update:
                      msg.stop_time_update ++
-                       [TransitRealtime.TripUpdate.StopTimeUpdate.decode!(delimited)]
+                       [
+                         TransitRealtime.TripUpdate.StopTimeUpdate.decode!(
+                           delimited
+                         )
+                       ]
                  ], rest}
 
               {3, _, bytes} ->
@@ -13318,16 +14606,20 @@
                    trip_properties:
                      Protox.MergeMessage.merge(
                        msg.trip_properties,
-                       TransitRealtime.TripUpdate.TripProperties.decode!(delimited)
+                       TransitRealtime.TripUpdate.TripProperties.decode!(
+                         delimited
+                       )
                      )
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {set_fields,
                  [
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -13340,7 +14632,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -13351,7 +14644,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -13360,7 +14654,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -13371,39 +14666,58 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
-          2 => {:stop_time_update, :unpacked, {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
-          3 => {:vehicle, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}},
+          1 =>
+            {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
+          2 =>
+            {:stop_time_update, :unpacked,
+             {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
+          3 =>
+            {:vehicle, {:scalar, nil},
+             {:message, TransitRealtime.VehicleDescriptor}},
           4 => {:timestamp, {:scalar, 0}, :uint64},
           5 => {:delay, {:scalar, 0}, :int32},
-          6 => {:trip_properties, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.TripProperties}}
+          6 =>
+            {:trip_properties, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate.TripProperties}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
           delay: {5, {:scalar, 0}, :int32},
-          stop_time_update: {2, :unpacked, {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
+          stop_time_update:
+            {2, :unpacked,
+             {:message, TransitRealtime.TripUpdate.StopTimeUpdate}},
           timestamp: {4, {:scalar, 0}, :uint64},
           trip: {1, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
-          trip_properties: {6, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.TripProperties}},
-          vehicle: {3, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}}
+          trip_properties:
+            {6, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate.TripProperties}},
+          vehicle:
+            {3, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}}
         }
       end
     )
@@ -13470,7 +14784,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:trip) do
             {:ok,
@@ -13674,7 +14990,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -13705,7 +15023,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:trip) do
         {:ok, nil}
       end,
@@ -13784,7 +15105,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -13809,7 +15131,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:delay, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:delay, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_time(acc, msg) do
@@ -13820,7 +15143,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:time, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:time, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_uncertainty(acc, msg) do
@@ -13831,14 +15155,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:uncertainty, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :uncertainty,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -13848,7 +15177,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -13864,7 +15199,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -13872,7 +15211,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.TripUpdate.StopTimeEvent))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.TripUpdate.StopTimeEvent)
+            )
           end
         )
       )
@@ -13902,10 +15244,12 @@
                 {[uncertainty: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -13918,7 +15262,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -13929,7 +15274,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -13938,7 +15284,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -13949,15 +15296,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -13969,7 +15322,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -14015,7 +15369,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:delay) do
             {:ok,
@@ -14110,7 +15466,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -14141,7 +15499,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:delay) do
         {:ok, 0}
       end,
@@ -14218,7 +15579,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -14247,7 +15609,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_sequence, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :stop_sequence,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -14259,7 +15624,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:arrival, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:arrival, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_departure(acc, msg) do
@@ -14270,7 +15636,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:departure, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :departure,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_stop_id(acc, msg) do
@@ -14281,7 +15651,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_schedule_relationship(acc, msg) do
@@ -14301,19 +15672,32 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:schedule_relationship, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :schedule_relationship,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_stop_time_properties(acc, msg) do
           try do
             case msg.stop_time_properties do
-              nil -> acc
-              _ -> [acc, "2", Protox.Encode.encode_message(msg.stop_time_properties)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "2",
+                  Protox.Encode.encode_message(msg.stop_time_properties)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_time_properties, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :stop_time_properties,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -14344,7 +15728,9 @@
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -14354,7 +15740,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -14370,7 +15762,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -14378,7 +15774,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.TripUpdate.StopTimeUpdate))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.TripUpdate.StopTimeUpdate)
+            )
           end
         )
       )
@@ -14407,7 +15806,9 @@
                    arrival:
                      Protox.MergeMessage.merge(
                        msg.arrival,
-                       TransitRealtime.TripUpdate.StopTimeEvent.decode!(delimited)
+                       TransitRealtime.TripUpdate.StopTimeEvent.decode!(
+                         delimited
+                       )
                      )
                  ], rest}
 
@@ -14419,7 +15820,9 @@
                    departure:
                      Protox.MergeMessage.merge(
                        msg.departure,
-                       TransitRealtime.TripUpdate.StopTimeEvent.decode!(delimited)
+                       TransitRealtime.TripUpdate.StopTimeEvent.decode!(
+                         delimited
+                       )
                      )
                  ], rest}
 
@@ -14445,21 +15848,28 @@
                    stop_time_properties:
                      Protox.MergeMessage.merge(
                        msg.stop_time_properties,
-                       TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties.decode!(delimited)
+                       TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties.decode!(
+                         delimited
+                       )
                      )
                  ], rest}
 
               {7, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.VehiclePosition.OccupancyStatus)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.VehiclePosition.OccupancyStatus
+                  )
 
                 {[departure_occupancy_status: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -14472,7 +15882,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -14483,7 +15894,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -14492,7 +15904,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -14503,48 +15916,72 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
           1 => {:stop_sequence, {:scalar, 0}, :uint32},
-          2 => {:arrival, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
-          3 => {:departure, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
+          2 =>
+            {:arrival, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
+          3 =>
+            {:departure, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
           4 => {:stop_id, {:scalar, ""}, :string},
           5 =>
             {:schedule_relationship, {:scalar, :SCHEDULED},
-             {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}},
+             {:enum,
+              TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}},
           6 =>
             {:stop_time_properties, {:scalar, nil},
-             {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}},
+             {:message,
+              TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}},
           7 =>
-            {:departure_occupancy_status, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
+            {:departure_occupancy_status, {:scalar, :EMPTY},
+             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
-          arrival: {2, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
-          departure: {3, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
-          departure_occupancy_status: {7, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+          arrival:
+            {2, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
+          departure:
+            {3, {:scalar, nil},
+             {:message, TransitRealtime.TripUpdate.StopTimeEvent}},
+          departure_occupancy_status:
+            {7, {:scalar, :EMPTY},
+             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           schedule_relationship:
-            {5, {:scalar, :SCHEDULED}, {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}},
+            {5, {:scalar, :SCHEDULED},
+             {:enum,
+              TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}},
           stop_id: {4, {:scalar, ""}, :string},
           stop_sequence: {1, {:scalar, 0}, :uint32},
           stop_time_properties:
-            {6, {:scalar, nil}, {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}}
+            {6, {:scalar, nil},
+             {:message,
+              TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}}
         }
       end
     )
@@ -14596,7 +16033,9 @@
             label: :optional,
             name: :schedule_relationship,
             tag: 5,
-            type: {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
+            type:
+              {:enum,
+               TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
           },
           %{
             __struct__: Protox.Field,
@@ -14605,7 +16044,9 @@
             label: :optional,
             name: :stop_time_properties,
             tag: 6,
-            type: {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
+            type:
+              {:message,
+               TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
           },
           %{
             __struct__: Protox.Field,
@@ -14620,7 +16061,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:stop_sequence) do
             {:ok,
@@ -14769,7 +16212,9 @@
                label: :optional,
                name: :schedule_relationship,
                tag: 5,
-               type: {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
+               type:
+                 {:enum,
+                  TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
              }}
           end
 
@@ -14782,7 +16227,9 @@
                label: :optional,
                name: :schedule_relationship,
                tag: 5,
-               type: {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
+               type:
+                 {:enum,
+                  TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
              }}
           end
 
@@ -14795,7 +16242,9 @@
                label: :optional,
                name: :schedule_relationship,
                tag: 5,
-               type: {:enum, TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
+               type:
+                 {:enum,
+                  TransitRealtime.TripUpdate.StopTimeUpdate.ScheduleRelationship}
              }}
           end
         ),
@@ -14809,7 +16258,9 @@
                label: :optional,
                name: :stop_time_properties,
                tag: 6,
-               type: {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
+               type:
+                 {:message,
+                  TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
              }}
           end
 
@@ -14822,7 +16273,9 @@
                label: :optional,
                name: :stop_time_properties,
                tag: 6,
-               type: {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
+               type:
+                 {:message,
+                  TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
              }}
           end
 
@@ -14835,7 +16288,9 @@
                label: :optional,
                name: :stop_time_properties,
                tag: 6,
-               type: {:message, TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
+               type:
+                 {:message,
+                  TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties}
              }}
           end
         ),
@@ -14886,7 +16341,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -14917,7 +16374,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:stop_sequence) do
         {:ok, 0}
       end,
@@ -14999,7 +16459,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -15015,19 +16476,27 @@
         defp encode_assigned_stop_id(acc, msg) do
           try do
             case msg.assigned_stop_id do
-              nil -> acc
-              _ -> [acc, "\n", Protox.Encode.encode_string(msg.assigned_stop_id)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "\n", Protox.Encode.encode_string(msg.assigned_stop_id)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:assigned_stop_id, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :assigned_stop_id,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -15037,7 +16506,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -15053,7 +16528,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -15063,7 +16542,9 @@
           def decode!(bytes) do
             parse_key_value(
               bytes,
-              struct(TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties)
+              struct(
+                TransitRealtime.TripUpdate.StopTimeUpdate.StopTimeProperties
+              )
             )
           end
         )
@@ -15084,13 +16565,17 @@
               {1, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[assigned_stop_id: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[assigned_stop_id: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -15103,7 +16588,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -15114,7 +16600,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -15123,7 +16610,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -15134,15 +16622,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{1 => {:assigned_stop_id, {:scalar, ""}, :string}}
@@ -15150,7 +16644,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{assigned_stop_id: {1, {:scalar, ""}, :string}}
@@ -15174,7 +16669,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:assigned_stop_id) do
             {:ok,
@@ -15222,7 +16719,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -15253,7 +16752,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:assigned_stop_id) do
         {:ok, ""}
       end,
@@ -15308,7 +16810,11 @@
   end,
   defmodule TransitRealtime.TripUpdate.TripProperties do
     @moduledoc false
-    defstruct trip_id: nil, start_date: nil, start_time: nil, shape_id: nil, __uf__: []
+    defstruct trip_id: nil,
+              start_date: nil,
+              start_time: nil,
+              shape_id: nil,
+              __uf__: []
 
     (
       (
@@ -15317,7 +16823,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -15343,7 +16850,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:trip_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_start_date(acc, msg) do
@@ -15354,7 +16862,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_date, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :start_date,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_start_time(acc, msg) do
@@ -15365,7 +16877,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:start_time, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :start_time,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_shape_id(acc, msg) do
@@ -15376,13 +16892,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:shape_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :shape_id,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -15392,7 +16914,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -15408,7 +16936,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -15416,7 +16948,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.TripUpdate.TripProperties))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.TripUpdate.TripProperties)
+            )
           end
         )
       )
@@ -15454,10 +16989,12 @@
                 {[shape_id: Protox.Decode.validate_string!(delimited)], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -15470,7 +17007,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -15481,7 +17019,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -15490,7 +17029,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -15501,15 +17041,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -15522,7 +17068,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -15578,7 +17125,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:trip_id) do
             {:ok,
@@ -15746,7 +17295,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -15777,7 +17328,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:trip_id) do
         {:ok, ""}
       end,
@@ -15841,7 +17395,11 @@
   end,
   defmodule TransitRealtime.VehicleDescriptor do
     @moduledoc false
-    defstruct id: nil, label: nil, license_plate: nil, wheelchair_accessible: nil, __uf__: []
+    defstruct id: nil,
+              label: nil,
+              license_plate: nil,
+              wheelchair_accessible: nil,
+              __uf__: []
 
     (
       (
@@ -15850,7 +17408,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -15876,7 +17435,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_label(acc, msg) do
@@ -15887,7 +17447,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:label, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:label, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_license_plate(acc, msg) do
@@ -15898,7 +17459,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:license_plate, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :license_plate,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -15919,14 +17483,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:wheelchair_accessible, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :wheelchair_accessible,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -15936,7 +17505,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -15952,7 +17527,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -15990,7 +17569,9 @@
               {3, _, bytes} ->
                 {len, bytes} = Protox.Varint.decode(bytes)
                 {delimited, rest} = Protox.Decode.parse_delimited(bytes, len)
-                {[license_plate: Protox.Decode.validate_string!(delimited)], rest}
+
+                {[license_plate: Protox.Decode.validate_string!(delimited)],
+                 rest}
 
               {4, _, bytes} ->
                 {value, rest} =
@@ -16002,10 +17583,12 @@
                 {[wheelchair_accessible: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -16018,7 +17601,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -16029,7 +17613,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -16038,7 +17623,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -16049,15 +17635,21 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
@@ -16072,7 +17664,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -16080,7 +17673,8 @@
           label: {2, {:scalar, ""}, :string},
           license_plate: {3, {:scalar, ""}, :string},
           wheelchair_accessible:
-            {4, {:scalar, :NO_VALUE}, {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}}
+            {4, {:scalar, :NO_VALUE},
+             {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}}
         }
       end
     )
@@ -16123,13 +17717,16 @@
             label: :optional,
             name: :wheelchair_accessible,
             tag: 4,
-            type: {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
+            type:
+              {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
           }
         ]
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:id) do
             {:ok,
@@ -16238,7 +17835,8 @@
                label: :optional,
                name: :wheelchair_accessible,
                tag: 4,
-               type: {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
+               type:
+                 {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
              }}
           end
 
@@ -16251,7 +17849,8 @@
                label: :optional,
                name: :wheelchair_accessible,
                tag: 4,
-               type: {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
+               type:
+                 {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
              }}
           end
 
@@ -16264,7 +17863,8 @@
                label: :optional,
                name: :wheelchair_accessible,
                tag: 4,
-               type: {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
+               type:
+                 {:enum, TransitRealtime.VehicleDescriptor.WheelchairAccessible}
              }}
           end
         ),
@@ -16275,7 +17875,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -16306,7 +17908,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:id) do
         {:ok, ""}
       end,
@@ -16390,7 +17995,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -16423,7 +18029,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:trip, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:trip, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_position(acc, msg) do
@@ -16434,18 +18041,32 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:position, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :position,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_current_stop_sequence(acc, msg) do
           try do
             case msg.current_stop_sequence do
-              nil -> acc
-              _ -> [acc, "\x18", Protox.Encode.encode_uint32(msg.current_stop_sequence)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "\x18",
+                  Protox.Encode.encode_uint32(msg.current_stop_sequence)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:current_stop_sequence, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :current_stop_sequence,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -16466,7 +18087,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:current_status, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :current_status,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -16478,7 +18102,11 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:timestamp, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(
+                        :timestamp,
+                        "invalid field value"
+                      ),
+                      __STACKTRACE__
           end
         end,
         defp encode_congestion_level(acc, msg) do
@@ -16498,7 +18126,10 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:congestion_level, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :congestion_level,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -16510,7 +18141,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:stop_id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:stop_id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_vehicle(acc, msg) do
@@ -16521,7 +18153,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:vehicle, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:vehicle, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_occupancy_status(acc, msg) do
@@ -16541,19 +18174,32 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:occupancy_status, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :occupancy_status,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_occupancy_percentage(acc, msg) do
           try do
             case msg.occupancy_percentage do
-              nil -> acc
-              _ -> [acc, "P", Protox.Encode.encode_uint32(msg.occupancy_percentage)]
+              nil ->
+                acc
+
+              _ ->
+                [
+                  acc,
+                  "P",
+                  Protox.Encode.encode_uint32(msg.occupancy_percentage)
+                ]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:occupancy_percentage, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :occupancy_percentage,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
@@ -16573,14 +18219,19 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:multi_carriage_details, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :multi_carriage_details,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -16590,7 +18241,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -16606,7 +18263,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -16674,7 +18335,10 @@
 
               {6, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.VehiclePosition.CongestionLevel)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.VehiclePosition.CongestionLevel
+                  )
 
                 {[congestion_level: value], rest}
 
@@ -16697,7 +18361,10 @@
 
               {9, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.VehiclePosition.OccupancyStatus)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.VehiclePosition.OccupancyStatus
+                  )
 
                 {[occupancy_status: value], rest}
 
@@ -16712,14 +18379,20 @@
                 {[
                    multi_carriage_details:
                      msg.multi_carriage_details ++
-                       [TransitRealtime.VehiclePosition.CarriageDetails.decode!(delimited)]
+                       [
+                         TransitRealtime.VehiclePosition.CarriageDetails.decode!(
+                           delimited
+                         )
+                       ]
                  ], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -16732,7 +18405,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -16743,7 +18417,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -16752,7 +18427,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -16763,52 +18439,77 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
-          1 => {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
-          2 => {:position, {:scalar, nil}, {:message, TransitRealtime.Position}},
+          1 =>
+            {:trip, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
+          2 =>
+            {:position, {:scalar, nil}, {:message, TransitRealtime.Position}},
           3 => {:current_stop_sequence, {:scalar, 0}, :uint32},
-          4 => {:current_status, {:scalar, :IN_TRANSIT_TO}, {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
+          4 =>
+            {:current_status, {:scalar, :IN_TRANSIT_TO},
+             {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
           5 => {:timestamp, {:scalar, 0}, :uint64},
           6 =>
             {:congestion_level, {:scalar, :UNKNOWN_CONGESTION_LEVEL},
              {:enum, TransitRealtime.VehiclePosition.CongestionLevel}},
           7 => {:stop_id, {:scalar, ""}, :string},
-          8 => {:vehicle, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}},
-          9 => {:occupancy_status, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+          8 =>
+            {:vehicle, {:scalar, nil},
+             {:message, TransitRealtime.VehicleDescriptor}},
+          9 =>
+            {:occupancy_status, {:scalar, :EMPTY},
+             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           10 => {:occupancy_percentage, {:scalar, 0}, :uint32},
-          11 => {:multi_carriage_details, :unpacked, {:message, TransitRealtime.VehiclePosition.CarriageDetails}}
+          11 =>
+            {:multi_carriage_details, :unpacked,
+             {:message, TransitRealtime.VehiclePosition.CarriageDetails}}
         }
       end
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
           congestion_level:
-            {6, {:scalar, :UNKNOWN_CONGESTION_LEVEL}, {:enum, TransitRealtime.VehiclePosition.CongestionLevel}},
-          current_status: {4, {:scalar, :IN_TRANSIT_TO}, {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
+            {6, {:scalar, :UNKNOWN_CONGESTION_LEVEL},
+             {:enum, TransitRealtime.VehiclePosition.CongestionLevel}},
+          current_status:
+            {4, {:scalar, :IN_TRANSIT_TO},
+             {:enum, TransitRealtime.VehiclePosition.VehicleStopStatus}},
           current_stop_sequence: {3, {:scalar, 0}, :uint32},
-          multi_carriage_details: {11, :unpacked, {:message, TransitRealtime.VehiclePosition.CarriageDetails}},
+          multi_carriage_details:
+            {11, :unpacked,
+             {:message, TransitRealtime.VehiclePosition.CarriageDetails}},
           occupancy_percentage: {10, {:scalar, 0}, :uint32},
-          occupancy_status: {9, {:scalar, :EMPTY}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+          occupancy_status:
+            {9, {:scalar, :EMPTY},
+             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           position: {2, {:scalar, nil}, {:message, TransitRealtime.Position}},
           stop_id: {7, {:scalar, ""}, :string},
           timestamp: {5, {:scalar, 0}, :uint64},
           trip: {1, {:scalar, nil}, {:message, TransitRealtime.TripDescriptor}},
-          vehicle: {8, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}}
+          vehicle:
+            {8, {:scalar, nil}, {:message, TransitRealtime.VehicleDescriptor}}
         }
       end
     )
@@ -16920,7 +18621,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:trip) do
             {:ok,
@@ -17324,7 +19027,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -17355,7 +19060,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:trip) do
         {:ok, nil}
       end,
@@ -17454,7 +19162,8 @@
           try do
             {:ok, encode!(msg)}
           rescue
-            e in [Protox.EncodingError, Protox.RequiredFieldsError] -> {:error, e}
+            e in [Protox.EncodingError, Protox.RequiredFieldsError] ->
+              {:error, e}
           end
         end
 
@@ -17481,7 +19190,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:id, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:id, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_label(acc, msg) do
@@ -17492,7 +19202,8 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:label, "invalid field value"), __STACKTRACE__
+              reraise Protox.EncodingError.new(:label, "invalid field value"),
+                      __STACKTRACE__
           end
         end,
         defp encode_occupancy_status(acc, msg) do
@@ -17512,38 +19223,55 @@
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:occupancy_status, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :occupancy_status,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_occupancy_percentage(acc, msg) do
           try do
             case msg.occupancy_percentage do
-              nil -> acc
-              _ -> [acc, " ", Protox.Encode.encode_int32(msg.occupancy_percentage)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, " ", Protox.Encode.encode_int32(msg.occupancy_percentage)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:occupancy_percentage, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :occupancy_percentage,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end,
         defp encode_carriage_sequence(acc, msg) do
           try do
             case msg.carriage_sequence do
-              nil -> acc
-              _ -> [acc, "(", Protox.Encode.encode_uint32(msg.carriage_sequence)]
+              nil ->
+                acc
+
+              _ ->
+                [acc, "(", Protox.Encode.encode_uint32(msg.carriage_sequence)]
             end
           rescue
             ArgumentError ->
-              reraise Protox.EncodingError.new(:carriage_sequence, "invalid field value"),
+              reraise Protox.EncodingError.new(
+                        :carriage_sequence,
+                        "invalid field value"
+                      ),
                       __STACKTRACE__
           end
         end
       ]
 
       defp encode_unknown_fields(acc, msg) do
-        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type, bytes}, acc ->
+        Enum.reduce(msg.__struct__.unknown_fields(msg), acc, fn {tag, wire_type,
+                                                                 bytes},
+                                                                acc ->
           case wire_type do
             0 ->
               [acc, Protox.Encode.make_key_bytes(tag, :int32), bytes]
@@ -17553,7 +19281,13 @@
 
             2 ->
               len_bytes = bytes |> byte_size() |> Protox.Varint.encode()
-              [acc, Protox.Encode.make_key_bytes(tag, :packed), len_bytes, bytes]
+
+              [
+                acc,
+                Protox.Encode.make_key_bytes(tag, :packed),
+                len_bytes,
+                bytes
+              ]
 
             5 ->
               [acc, Protox.Encode.make_key_bytes(tag, :float), bytes]
@@ -17569,7 +19303,11 @@
           try do
             {:ok, decode!(bytes)}
           rescue
-            e in [Protox.DecodingError, Protox.IllegalTagError, Protox.RequiredFieldsError] ->
+            e in [
+              Protox.DecodingError,
+              Protox.IllegalTagError,
+              Protox.RequiredFieldsError
+            ] ->
               {:error, e}
           end
         end
@@ -17577,7 +19315,10 @@
         (
           @spec decode!(binary) :: struct | no_return
           def decode!(bytes) do
-            parse_key_value(bytes, struct(TransitRealtime.VehiclePosition.CarriageDetails))
+            parse_key_value(
+              bytes,
+              struct(TransitRealtime.VehiclePosition.CarriageDetails)
+            )
           end
         )
       )
@@ -17606,7 +19347,10 @@
 
               {3, _, bytes} ->
                 {value, rest} =
-                  Protox.Decode.parse_enum(bytes, TransitRealtime.VehiclePosition.OccupancyStatus)
+                  Protox.Decode.parse_enum(
+                    bytes,
+                    TransitRealtime.VehiclePosition.OccupancyStatus
+                  )
 
                 {[occupancy_status: value], rest}
 
@@ -17619,10 +19363,12 @@
                 {[carriage_sequence: value], rest}
 
               {tag, wire_type, rest} ->
-                {value, rest} = Protox.Decode.parse_unknown(tag, wire_type, rest)
+                {value, rest} =
+                  Protox.Decode.parse_unknown(tag, wire_type, rest)
 
                 {[
-                   {msg.__struct__.unknown_fields_name(), [value | msg.__struct__.unknown_fields(msg)]}
+                   {msg.__struct__.unknown_fields_name(),
+                    [value | msg.__struct__.unknown_fields(msg)]}
                  ], rest}
             end
 
@@ -17635,7 +19381,8 @@
     )
 
     (
-      @spec json_decode(iodata(), keyword()) :: {:ok, struct()} | {:error, any()}
+      @spec json_decode(iodata(), keyword()) ::
+              {:ok, struct()} | {:error, any()}
       def json_decode(input, opts \\ []) do
         try do
           {:ok, json_decode!(input, opts)}
@@ -17646,7 +19393,8 @@
 
       @spec json_decode!(iodata(), keyword()) :: struct() | no_return()
       def json_decode!(input, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :decode)
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :decode)
 
         Protox.JsonDecode.decode!(
           input,
@@ -17655,7 +19403,8 @@
         )
       end
 
-      @spec json_encode(struct(), keyword()) :: {:ok, iodata()} | {:error, any()}
+      @spec json_encode(struct(), keyword()) ::
+              {:ok, iodata()} | {:error, any()}
       def json_encode(msg, opts \\ []) do
         try do
           {:ok, json_encode!(msg, opts)}
@@ -17666,22 +19415,29 @@
 
       @spec json_encode!(struct(), keyword()) :: iodata() | no_return()
       def json_encode!(msg, opts \\ []) do
-        {json_library_wrapper, json_library} = Protox.JsonLibrary.get_library(opts, :encode)
-        Protox.JsonEncode.encode!(msg, &json_library_wrapper.encode!(json_library, &1))
+        {json_library_wrapper, json_library} =
+          Protox.JsonLibrary.get_library(opts, :encode)
+
+        Protox.JsonEncode.encode!(
+          msg,
+          &json_library_wrapper.encode!(json_library, &1)
+        )
       end
     )
 
     (
       @deprecated "Use fields_defs()/0 instead"
       @spec defs() :: %{
-              required(non_neg_integer) => {atom, Protox.Types.kind(), Protox.Types.type()}
+              required(non_neg_integer) =>
+                {atom, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs() do
         %{
           1 => {:id, {:scalar, ""}, :string},
           2 => {:label, {:scalar, ""}, :string},
           3 =>
-            {:occupancy_status, {:scalar, :NO_DATA_AVAILABLE}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
+            {:occupancy_status, {:scalar, :NO_DATA_AVAILABLE},
+             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}},
           4 => {:occupancy_percentage, {:scalar, -1}, :int32},
           5 => {:carriage_sequence, {:scalar, 0}, :uint32}
         }
@@ -17689,7 +19445,8 @@
 
       @deprecated "Use fields_defs()/0 instead"
       @spec defs_by_name() :: %{
-              required(atom) => {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
+              required(atom) =>
+                {non_neg_integer, Protox.Types.kind(), Protox.Types.type()}
             }
       def defs_by_name() do
         %{
@@ -17697,7 +19454,9 @@
           id: {1, {:scalar, ""}, :string},
           label: {2, {:scalar, ""}, :string},
           occupancy_percentage: {4, {:scalar, -1}, :int32},
-          occupancy_status: {3, {:scalar, :NO_DATA_AVAILABLE}, {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
+          occupancy_status:
+            {3, {:scalar, :NO_DATA_AVAILABLE},
+             {:enum, TransitRealtime.VehiclePosition.OccupancyStatus}}
         }
       end
     )
@@ -17755,7 +19514,9 @@
       end
 
       [
-        @spec(field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}),
+        @spec(
+          field_def(atom) :: {:ok, Protox.Field.t()} | {:error, :no_such_field}
+        ),
         (
           def field_def(:id) do
             {:ok,
@@ -17941,7 +19702,9 @@
     )
 
     (
-      @spec unknown_fields(struct) :: [{non_neg_integer, Protox.Types.tag(), binary}]
+      @spec unknown_fields(struct) :: [
+              {non_neg_integer, Protox.Types.tag(), binary}
+            ]
       def unknown_fields(msg) do
         msg.__uf__
       end
@@ -17972,7 +19735,10 @@
     )
 
     [
-      @spec(default(atom) :: {:ok, boolean | integer | String.t() | float} | {:error, atom}),
+      @spec(
+        default(atom) ::
+          {:ok, boolean | integer | String.t() | float} | {:error, atom}
+      ),
       def default(:id) do
         {:ok, ""}
       end,

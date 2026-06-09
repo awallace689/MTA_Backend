@@ -26,7 +26,11 @@ defmodule MTA.IO.Persistence.File do
   def write_feed_message_json(%MTA.Models.FeedMessage{} = message) do
     tr_message = %TransitRealtime.FeedMessage{
       header: message.header,
-      entity: Enum.map(message.entity, &struct(TransitRealtime.FeedEntity, Map.from_struct(&1))),
+      entity:
+        Enum.map(
+          message.entity,
+          &struct(TransitRealtime.FeedEntity, Map.from_struct(&1))
+        ),
       __uf__: message.__uf__
     }
 

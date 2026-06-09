@@ -10,7 +10,11 @@ defmodule MTA.MixProject do
       deps: deps(),
       aliases: aliases(),
       test_coverage: [
-        ignore_modules: [~r/^TransitRealtime\./, ~r/^MTA\.Constants\./, ~r/^Mix\.Tasks\./],
+        ignore_modules: [
+          ~r/^TransitRealtime\./,
+          ~r/^MTA\.Constants\./,
+          ~r/^Mix\.Tasks\./
+        ],
         summary: [threshold: 70]
       ]
     ]
@@ -29,7 +33,13 @@ defmodule MTA.MixProject do
 
   def aliases do
     [
-      pp: ["compile --warnings-as-errors", "format --check-formatted", "dialyzer", "t", "credo"],
+      pp: [
+        "compile --warnings-as-errors",
+        "format --check-formatted",
+        "dialyzer",
+        "t",
+        "credo"
+      ],
       t: fn args ->
         Mix.Task.run("test", ["--cover", "--slowest", "3"] ++ args)
       end,

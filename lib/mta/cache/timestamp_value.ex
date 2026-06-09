@@ -6,7 +6,11 @@ defmodule MTA.Cache.TimestampValue do
     %__MODULE__{value: value, timestamp: DateTime.utc_now()}
   end
 
-  @spec expired?(DateTime.t(), number(), :day | :hour | :minute | System.time_unit()) ::
+  @spec expired?(
+          DateTime.t(),
+          number(),
+          :day | :hour | :minute | System.time_unit()
+        ) ::
           boolean()
   @doc """
   A timestamp is always expired if it is missing or time elapsed is greater than `timeout`.
