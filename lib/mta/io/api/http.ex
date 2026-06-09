@@ -25,23 +25,23 @@ defmodule MTA.IO.API.HTTP do
   defp get_mta_feed_message() do
     req_options = Application.fetch_env!(:mta, :feed_message_req_options)
 
+    req = fn ->
+      Req.get(
+        Keyword.merge(
+          [url: MTA.Constants.URL.mta_realtime_gtfs()],
+          req_options
+        )
+      )
+    end
+
     resp =
-      case Req.get(
-             Keyword.merge(
-               [url: MTA.Constants.URL.mta_realtime_gtfs()],
-               req_options
-             )
-           ) do
+      case req.() do
         {:ok, resp} ->
           resp
 
         {:error, reason} ->
           raise FeedMessageError, message: "Request failed: #{inspect(reason)}"
       end
-
-    if resp.status != 200 do
-      raise FeedMessageError, message: "Bad response code: HTTP #{resp.status}"
-    end
 
     Protox.decode!(resp.body, TransitRealtime.FeedMessage)
   end
